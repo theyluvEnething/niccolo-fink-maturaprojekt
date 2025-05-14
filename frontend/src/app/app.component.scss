@@ -1,20 +1,13 @@
 .app-container {
   height: 100vh;
   width: 100vw;
-  background-color: #f4f6f8; /* Light background for the content area */
+  background-color: #e8f5e9;
 }
 
 .app-sidebar-container {
-  /* width: 260px; REMOVE THIS LINE */
-  border-right: none !important; /* Remove default border if any */
-  overflow: hidden; /* Prevent scrollbars during transition */
+  overflow: hidden;
 }
 
 .app-main-content {
-  padding: 0; /* Adjust if global padding is desired for content */
-}
-
-.app-main-content.no-sidebar {
-  /* Styles for when the sidebar is not shown, if any specific adjustments are needed */
-  /* For example, if the sidebar had a fixed width and you needed to adjust margins/paddings */
+  padding: 0;
 }

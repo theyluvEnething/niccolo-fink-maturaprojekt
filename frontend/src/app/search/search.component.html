@@ -1,10 +1,11 @@
-<div class="search-container">
-  <mat-toolbar color="primary">
-    <span>Search Teachers</span>
-  </mat-toolbar>
+<div class="page-content-container">
+  <div class="page-header">
+    <h1>Search Teachers</h1>
+    <p>Find and subscribe to chess teachers based on their expertise.</p>
+  </div>
 
   <div class="search-bar-container">
-    <mat-form-field appearance="outline" class="full-width">
+    <mat-form-field appearance="outline" class="full-width-field">
       <mat-label>Search by name, title, or rating</mat-label>
       <input matInput [(ngModel)]="searchTerm" (ngModelChange)="onSearchTermChange()" placeholder="e.g., John Doe, GM, 2500">
       <button mat-icon-button matSuffix *ngIf="searchTerm" (click)="clearSearch()" aria-label="Clear search">
@@ -17,26 +18,26 @@
     <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
   </div>
 
-  <div *ngIf="!isLoading && filteredTeachers.length === 0 && searchTerm" class="no-results-message">
+  <div *ngIf="!isLoading && filteredTeachers.length === 0 && searchTerm" class="no-data-message">
     No teachers found matching "{{ searchTerm }}".
   </div>
-  <div *ngIf="!isLoading && allTeachers.length === 0 && !searchTerm" class="no-results-message">
+  <div *ngIf="!isLoading && allTeachers.length === 0 && !searchTerm" class="no-data-message">
     No teachers available in the system yet.
   </div>
 
-  <div class="teachers-grid" *ngIf="!isLoading && filteredTeachers.length > 0">
-    <mat-card *ngFor="let teacher of filteredTeachers" (click)="openTeacherDetailPopup(teacher)" class="teacher-card" tabindex="0" role="button" [attr.aria-label]="'View details for ' + teacher.fullName">
+  <div class="teachers-grid grid-container" *ngIf="!isLoading && filteredTeachers.length > 0">
+    <mat-card *ngFor="let teacher of filteredTeachers" (click)="openTeacherDetailPopup(teacher)" class="teacher-card item-card" tabindex="0" role="button" [attr.aria-label]="'View details for ' + teacher.fullName">
       <mat-card-header>
-        <img mat-card-avatar [src]="teacher.profilePictureUrl || defaultProfilePic" alt="{{ teacher.fullName }} profile picture" class="teacher-avatar">
-        <mat-card-title>{{ teacher.fullName }}</mat-card-title>
-        <mat-card-subtitle *ngIf="teacher.chessTitle || teacher.rating" class="teacher-subtitle">
+        <img mat-card-avatar [src]="teacher.profilePictureUrl || defaultProfilePic" alt="{{ teacher.fullName }} profile picture" class="item-avatar">
+        <mat-card-title class="item-title">{{ teacher.fullName }}</mat-card-title>
+        <mat-card-subtitle *ngIf="teacher.chessTitle || teacher.rating" class="item-subtitle">
           <span *ngIf="teacher.chessTitle">{{ teacher.chessTitle }}</span>
           <span *ngIf="teacher.chessTitle && teacher.rating" class="subtitle-separator"> &middot; </span>
           <span *ngIf="teacher.rating">Rating: {{ teacher.rating }}</span>
         </mat-card-subtitle>
       </mat-card-header>
-      <mat-card-content class="teacher-card-content">
-        <p>Click to view details & subscribe.</p>
+      <mat-card-content class="item-card-content">
+        <p><mat-icon>touch_app</mat-icon> Click to view details & subscribe.</p>
       </mat-card-content>
     </mat-card>
   </div>

@@ -1,47 +1,26 @@
-.availability-container {
-  padding: 20px;
-  background-color: #f9f9f9;
-  min-height: calc(100vh - 64px);
-}
-
-.calendar-header {
+.calendar-info {
   text-align: center;
-  margin-bottom: 24px;
-}
-
-.calendar-header h2 {
-  font-size: 2em;
-  color: #3f51b5;
-  margin-bottom: 8px;
-}
-
-.calendar-header p {
-  font-size: 1em;
-  color: #555;
-}
-
-.loading-indicator {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
+  margin-bottom: 16px;
+  font-size: 0.95em;
+  color: #4CAF50; /* Standard Green */
 }
 
 .calendar-table-container {
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* For rounded corners on table */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  overflow: hidden;
+  padding: 16px;
 }
 
 .calendar-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed; /* Ensures columns are evenly sized */
+  table-layout: fixed;
 }
 
 .calendar-table th {
-  background-color: #3f51b5; /* Primary color */
+  background-color: #2E7D32; /* Dark Green */
   color: white;
   padding: 12px 8px;
   text-align: center;
@@ -50,17 +29,18 @@
 }
 
 .calendar-table td {
-  border: 1px solid #e0e0e0;
-  height: 120px; /* Adjust for desired cell height */
+  border: 1px solid #C8E6C9; /* Light Green Border */
+  height: 110px;
   vertical-align: top;
   padding: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   position: relative;
 }
 
 .calendar-table td:hover:not(.past-day):not(.other-month) {
-  background-color: #f0f4ff; /* Light hover for active cells */
+  background-color: #E8F5E9; /* Lightest green on hover */
+  box-shadow: inset 0 0 0 2px #A5D6A7; /* Inner border on hover */
 }
 
 .day-cell-content {
@@ -70,15 +50,15 @@
 }
 
 .day-number {
-  font-size: 1.1em;
+  font-size: 1.05em;
   font-weight: 500;
-  color: #333;
+  color: #1B5E20; /* Darker Green Text */
   margin-bottom: 4px;
   align-self: flex-start;
   padding: 4px;
-  border-radius: 50%; /* For circular highlight */
-  width: 28px; /* Fixed width for circle */
-  height: 28px; /* Fixed height for circle */
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -86,34 +66,39 @@
 }
 
 .calendar-table td.today .day-number {
-  background-color: #3f51b5;
+  background-color: #388E3C; /* Mid Green */
   color: white;
 }
 
 .calendar-table td.current-date-outline {
-  outline: 2px solid #2196F3; /* Blue outline for current date */
-  outline-offset: -2px; /* Offset to be inside the cell padding */
+  outline: 2px solid #4CAF50; /* Standard Green */
+  outline-offset: -2px;
 }
-
 
 .calendar-table td.past-day {
-  background-color: #f5f5f5;
+  background-color: #f0f0f0;
   cursor: not-allowed;
-  color: #bdbdbd;
 }
-.calendar-table td.past-day .day-number {
+.calendar-table td.past-day .day-number,
+.calendar-table td.past-day .status-text,
+.calendar-table td.past-day .slot-dot {
   color: #bdbdbd;
+  opacity: 0.6;
+}
+.calendar-table td.past-day .slot-dot {
+  background-color: #e0e0e0;
+  border-color: #ccc;
 }
 
+
 .calendar-table td.other-month {
-  background-color: #fafafa;
-  color: #ccc;
+  background-color: #f7f7f7;
 }
 .calendar-table td.other-month .day-number {
   color: #ccc;
 }
 .calendar-table td.other-month:hover {
-  background-color: #fafafa; /* No hover effect for other month days */
+  background-color: #f7f7f7; /* No hover for other month days */
 }
 
 
@@ -127,53 +112,46 @@
   text-align: center;
 }
 
-
 .slot-indicators {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 4px;
-  gap: 2px; /* Smaller gap */
-  max-height: 20px; /* Limit height of dots area */
+  gap: 3px;
+  max-height: 24px; /* Limit height of dots area */
   overflow: hidden;
+  padding: 2px 0;
 }
 
 .slot-dot {
-  width: 6px; /* Smaller dots */
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background-color: #a5d6a7; /* Lighter green for available */
-  border: 1px solid #81c784;
+  background-color: #A5D6A7; /* Lighter green for available */
+  border: 1px solid #81C784; /* Mid-light green border */
 }
 
 .slot-dot.booked {
-  background-color: #fff59d; /* Lighter yellow for booked */
-  border-color: #fff176;
+  background-color: #FFCC80; /* Lighter Orange/Yellow for booked */
+  border-color: #FFB74D; /* Mid-Orange/Yellow border */
 }
 
 .status-text {
-  font-size: 0.85em;
+  font-size: 0.8em;
   font-weight: 500;
-  color: #757575;
-  margin-top: 4px;
+  color: #666;
+  margin-top: 2px;
 }
 
-/* Day Cell Status Colors - for active month days, not past */
-.calendar-table td.status-green { background-color: #e8f5e9; }
-.calendar-table td.status-green .status-text { color: #2e7d32; }
+.calendar-table td.status-green:not(.past-day) { background-color: #E8F5E9; }
+.calendar-table td.status-green:not(.past-day) .status-text { color: #2E7D32; }
 
-.calendar-table td.status-yellow { background-color: #fffde7; }
-.calendar-table td.status-yellow .status-text { color: #f57f17; }
-.calendar-table td.status-yellow .slot-dot { background-color: #fff59d; border-color: #ffee58;}
-.calendar-table td.status-yellow .slot-dot.booked { background-color: #f57f17; border-color: #f57f17;}
+.calendar-table td.status-yellow:not(.past-day) { background-color: #FFF9C4; }
+.calendar-table td.status-yellow:not(.past-day) .status-text { color: #AF8600; }
+.calendar-table td.status-yellow:not(.past-day) .slot-dot { background-color: #A5D6A7; border-color: #81C784; } /* Green dot */
+.calendar-table td.status-yellow:not(.past-day) .slot-dot.booked { background-color: #FFCC80; border-color: #FFB74D; } /* Yellow dot */
 
-.calendar-table td.status-red { background-color: #ffebee; }
-.calendar-table td.status-red .status-text { color: #c62828; }
-.calendar-table td.status-red .slot-dot { background-color: #e57373; border-color: #ef5350;}
 
-.no-user-message {
-  text-align: center;
-  padding: 20px;
-  font-size: 1.2em;
-  color: #757575;
-}
+.calendar-table td.status-red:not(.past-day) { background-color: #FFEBEE; } /* All booked */
+.calendar-table td.status-red:not(.past-day) .status-text { color: #c62828; }
+.calendar-table td.status-red:not(.past-day) .slot-dot { background-color: #FFCC80; border-color: #FFB74D; } /* All are booked (yellow dots) */

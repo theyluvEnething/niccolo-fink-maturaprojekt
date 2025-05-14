@@ -1,12 +1,12 @@
 .popup-content {
   min-width: 500px;
-  max-height: 70vh; /* Set a max height for the content area */
+  max-height: 70vh;
 }
 
 .scrollable-slot-list {
-  max-height: calc(70vh - 120px); /* Adjust based on title and actions height */
+  max-height: calc(70vh - 120px);
   overflow-y: auto;
-  padding-right: 8px; /* Add some padding if scrollbar appears */
+  padding-right: 8px;
 }
 
 .no-slots-message {
@@ -17,25 +17,32 @@
 
 .slot-item-container {
   margin-bottom: 8px;
+  border: 1px solid #C8E6C9; /* Light green border */
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+.slot-item-container:hover {
+  background-color: #f0f4f0; /* Very light green on hover */
 }
 
 .slot-item {
-  padding: 12px 0 !important; /* Override default padding for better alignment */
+  padding: 12px 8px !important;
 }
 
 .slot-icon {
-  color: #3f51b5; /* Primary color */
+  color: #388E3C; /* Darker Green */
   margin-right: 16px;
 }
 
 .slot-time {
   font-weight: 500;
   font-size: 1.1em;
+  color: #1B5E20; /* Even Darker Green for emphasis */
 }
 
 .teacher-info {
   font-size: 0.9em;
-  color: #555;
+  color: #444;
   margin-top: 4px;
 }
 
@@ -44,11 +51,11 @@
 }
 
 .request-button {
-  margin-left: auto; /* Push to the right */
+  margin-left: auto;
 }
 
 mat-dialog-actions {
   padding-top: 16px;
-  border-top: 1px solid #e0e0e0; /* Optional: adds a separator */
+  border-top: 1px solid #C8E6C9; /* Light green separator */
   margin-top: 16px;
 }

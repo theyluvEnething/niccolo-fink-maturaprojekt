@@ -1,39 +1,120 @@
-
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-// Plus imports for other components in your app.
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
 @include mat.core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$frontend-primary: mat.define-palette(mat.$indigo-palette);
-$frontend-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$chessconnect-primary: mat.define-palette(mat.$green-palette, 700, 500, 800);
+$chessconnect-accent: mat.define-palette(mat.$light-green-palette, A700, A400, A700);
+$chessconnect-warn: mat.define-palette(mat.$red-palette);
 
-// The warn palette is optional (defaults to red).
-$frontend-warn: mat.define-palette(mat.$red-palette);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$frontend-theme: mat.define-light-theme((
+$chessconnect-theme: mat.define-light-theme((
   color: (
-    primary: $frontend-primary,
-    accent: $frontend-accent,
-    warn: $frontend-warn,
-  )
+    primary: $chessconnect-primary,
+    accent: $chessconnect-accent,
+    warn: $chessconnect-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
 ));
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($frontend-theme);
+@include mat.all-component-themes($chessconnect-theme);
 
-/* You can add global styles to this file, and also import other style files */
+html, body {
+  height: 100%;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #e8f5e9; /* Very light green global background */
+}
+
+.page-content-container {
+  margin: 20px;
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  min-height: calc(100vh - 40px - 64px - 48px); /* Viewport - (margins + app-toolbar + typical page-header) */
+}
+
+.page-header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #dcedc8; /* Light green separator */
+}
+
+.page-header h1 {
+  font-size: 2em;
+  font-weight: 500;
+  color: mat.get-color-from-palette($chessconnect-primary, 700); /* Dark green */
+  margin: 0 0 4px 0;
+}
+
+.page-header p {
+  font-size: 1em;
+  color: mat.get-color-from-palette(mat.$grey-palette, 600);
+  margin: 0;
+}
+
+/* Utility class for full width form fields */
+.full-width-field {
+  width: 100%;
+}
+
+/* Styling for lists inside cards or sections for consistency */
+.content-list {
+  padding: 0;
+  margin: 0;
+}
+
+.content-list-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.content-list-item:last-child {
+  border-bottom: none;
+}
+
+.content-list-item mat-icon {
+  margin-right: 12px;
+  color: mat.get-color-from-palette($chessconnect-primary);
+}
+
+/* Centered loading indicator */
+.loading-spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+  min-height: 200px; /* Ensure it takes some space */
+}
+
+.no-data-message {
+  text-align: center;
+  padding: 30px;
+  font-size: 1.1em;
+  color: mat.get-color-from-palette(mat.$grey-palette, 700);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.action-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  padding: 20px;
+}
+
+.action-card mat-card-title {
+  font-size: 1.3em;
+  font-weight: 500;
+  color: mat.get-color-from-palette($chessconnect-primary, 600);
+  margin-bottom: 16px;
+}

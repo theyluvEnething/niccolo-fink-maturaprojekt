@@ -1,18 +1,15 @@
-<div class="availability-container">
-  <mat-toolbar color="primary">
-    <span>My Availability - {{ currentMonthDisplay }}</span>
-  </mat-toolbar>
-
-  <div class="calendar-header">
-    <h2>Manage Your Weekly Availability</h2>
-    <p>Click on a day to add or modify your available time slots.</p>
+<div class="page-content-container">
+  <div class="page-header">
+    <h1>My Availability</h1>
+    <p>Manage your weekly teaching slots for {{ currentMonthDisplay }}.</p>
   </div>
 
-  <div *ngIf="isLoading" class="loading-indicator">
-    <mat-spinner diameter="50"></mat-spinner>
+  <div *ngIf="isLoading" class="loading-spinner-container">
+    <mat-progress-spinner diameter="50"></mat-progress-spinner>
   </div>
 
   <div *ngIf="!isLoading && currentUser" class="calendar-table-container">
+     <p class="calendar-info">Click on a day to add or modify your available time slots.</p>
     <table class="calendar-table">
       <thead>
         <tr>
@@ -50,7 +47,7 @@
     </table>
   </div>
 
-  <div *ngIf="!currentUser && !isLoading" class="no-user-message">
+  <div *ngIf="!currentUser && !isLoading" class="no-data-message">
     <p>Please log in as a teacher to manage availability.</p>
   </div>
 </div>

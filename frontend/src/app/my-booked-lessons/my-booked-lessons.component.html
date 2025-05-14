@@ -1,30 +1,31 @@
-<div class="my-lessons-container">
-  <mat-toolbar color="primary">
-    <span>My Booked Lessons</span>
-  </mat-toolbar>
+<div class="page-content-container">
+  <div class="page-header">
+    <h1>My Booked Lessons</h1>
+    <p>Here are your upcoming scheduled lessons.</p>
+  </div>
 
   <div *ngIf="isLoading" class="loading-spinner-container">
     <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
   </div>
 
-  <div *ngIf="!isLoading && bookedLessons.length === 0" class="no-lessons-message">
+  <div *ngIf="!isLoading && bookedLessons.length === 0" class="no-data-message">
     <p>You have no upcoming booked lessons.</p>
     <button mat-flat-button color="primary" routerLink="/find-lessons">Find a Lesson</button>
   </div>
 
-  <div *ngIf="!isLoading && bookedLessons.length > 0" class="lessons-grid">
-    <mat-card *ngFor="let lesson of bookedLessons" class="lesson-card">
+  <div *ngIf="!isLoading && bookedLessons.length > 0" class="lessons-grid grid-container">
+    <mat-card *ngFor="let lesson of bookedLessons" class="lesson-card item-card">
       <mat-card-header>
-        <img mat-card-avatar [src]="lesson.teacher?.profilePictureUrl || defaultProfilePic" alt="{{ lesson.teacher?.fullName }} profile picture" class="teacher-avatar">
-        <mat-card-title>{{ lesson.teacher?.fullName || 'N/A' }}</mat-card-title>
-        <mat-card-subtitle *ngIf="lesson.teacher?.chessTitle || lesson.teacher?.rating" class="teacher-subtitle">
+        <img mat-card-avatar [src]="lesson.teacher?.profilePictureUrl || defaultProfilePic" alt="{{ lesson.teacher?.fullName }} profile picture" class="item-avatar">
+        <mat-card-title class="item-title">{{ lesson.teacher?.fullName || 'N/A' }}</mat-card-title>
+        <mat-card-subtitle *ngIf="lesson.teacher?.chessTitle || lesson.teacher?.rating" class="item-subtitle">
           <span *ngIf="lesson.teacher?.chessTitle">{{ lesson.teacher?.chessTitle }}</span>
           <span *ngIf="lesson.teacher?.chessTitle && lesson.teacher?.rating" class="subtitle-separator"> &middot; </span>
           <span *ngIf="lesson.teacher?.rating">Rating: {{ lesson.teacher?.rating }}</span>
         </mat-card-subtitle>
       </mat-card-header>
 
-      <mat-card-content class="lesson-details">
+      <mat-card-content class="lesson-details item-card-content">
         <div class="detail-item">
           <mat-icon class="detail-icon">calendar_today</mat-icon>
           <span>{{ lesson.lessonDate | date:'fullDate' }}</span>

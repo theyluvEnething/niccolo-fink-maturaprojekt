@@ -1,8 +1,9 @@
 .dialog-title {
-  color: #3f51b5; /* Primary color */
-  border-bottom: 1px solid #e0e0e0;
+  color: #2E7D32; /* Dark Green */
+  border-bottom: 1px solid #C8E6C9; /* Light green separator */
   padding-bottom: 12px;
   margin-bottom: 16px;
+  text-align: center;
 }
 
 .dialog-content {
@@ -18,38 +19,45 @@
 }
 
 .profile-picture-popup {
-  width: 120px;
-  height: 120px;
+  width: 100px; /* Slightly smaller */
+  height: 100px;
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 16px;
-  border: 3px solid #3f51b5;
+  border: 3px solid #4CAF50; /* Standard Green */
 }
 
 .teacher-name {
-  font-size: 1.5em;
+  font-size: 1.4em; /* Adjusted */
   font-weight: 500;
   margin-bottom: 8px;
-  color: #333;
+  color: #1B5E20; /* Even Darker Green */
 }
 
 .detail-item {
   display: flex;
   align-items: center;
-  font-size: 1em;
-  color: #555;
+  justify-content: center; /* Center items */
+  font-size: 0.95em; /* Adjusted */
+  color: #444; /* Darker Grey */
   margin-bottom: 8px;
 }
 
 .detail-icon {
   margin-right: 8px;
-  color: #757575;
+  color: #388E3C; /* Mid-Dark Green */
 }
 
 .dialog-actions {
-  padding: 8px 24px 16px 24px; /* Consistent padding */
+  padding: 8px 24px 16px 24px;
+  border-top: 1px solid #C8E6C9; /* Light green separator */
+  margin-top: 16px;
 }
 
 .dialog-actions button {
   margin-left: 8px;
+}
+
+.dialog-actions button mat-icon {
+  margin-right: 6px;
 }

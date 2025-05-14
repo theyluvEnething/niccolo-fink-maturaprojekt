@@ -21,6 +21,7 @@ export class ManageBookingsComponent implements OnInit, OnDestroy {
   allBookingRequests: ManageBookingViewModel[] = [];
   isLoading: boolean = false;
   teacherNotesMap: { [requestId: string]: string } = {};
+  readonly defaultProfilePic = 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
 
   private userSubscription: Subscription | undefined;
 

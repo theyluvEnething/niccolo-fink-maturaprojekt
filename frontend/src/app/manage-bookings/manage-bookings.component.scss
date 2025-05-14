@@ -1,91 +1,76 @@
-.manage-bookings-container {
-  padding: 20px;
-  background-color: #f9f9f9;
-  min-height: calc(100vh - 64px);
-}
-
-.loading-indicator {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-  margin-top: 30px;
-}
-
-.no-requests-message {
-  text-align: center;
-  padding: 40px 20px;
-  font-size: 1.2em;
-  color: #757575;
-}
-
-.requests-list-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.request-card {
+.request-card.item-card {
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
   position: relative;
-  border-left: 5px solid transparent; /* For status indication */
+  border-left: 6px solid transparent; /* Status indication */
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
 
-.request-card.status-pending { border-left-color: #FFC107; /* Amber */ }
-.request-card.status-accepted { border-left-color: #4CAF50; /* Green */ }
-.request-card.status-rejected { border-left-color: #F44336; /* Red */ }
+.request-card.item-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+.request-card.status-pending { border-left-color: #FFB300; /* Amber variant */ }
+.request-card.status-accepted { border-left-color: #43A047; /* Green variant */ }
+.request-card.status-rejected { border-left-color: #E53935; /* Red variant */ }
 
 
-.student-avatar {
-  border: 1px solid #eee;
+.item-avatar {
+  border: 1px solid #C8E6C9; /* Light green border */
 }
 
 .mat-mdc-card-header {
-  position: relative;
+  position: relative; /* For absolute positioning of status badge */
 }
 
-.mat-mdc-card-header-text {
-  margin-left: 12px !important;
+.item-title {
+    font-weight: 500;
 }
 
-.request-status {
+.request-details { /* Combined mat-card-subtitle styles */
+  font-size: 0.85em;
+  color: #555;
+  line-height: 1.4;
+}
+
+.request-status-badge {
   position: absolute;
   top: 16px;
   right: 16px;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.8em;
-  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 12px; /* More rounded badge */
+  font-size: 0.75em;
+  font-weight: 600;
   color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.request-status.status-pending { background-color: #FFC107; }
-.request-status.status-accepted { background-color: #4CAF50; }
-.request-status.status-rejected { background-color: #F44336; }
+.request-status-badge.status-pending { background-color: #FFB300; color: #3E2723;}
+.request-status-badge.status-accepted { background-color: #43A047; }
+.request-status-badge.status-rejected { background-color: #E53935; }
 
 .notes {
   font-size: 0.9em;
-  color: #555;
+  color: #444;
   margin-bottom: 12px;
-  padding: 8px;
-  background-color: #f5f5f5;
-  border-radius: 4px;
-  white-space: pre-wrap; /* Preserve line breaks in notes */
+  padding: 10px;
+  background-color: #f0f4f0; /* Very light green for notes */
+  border-radius: 6px;
+  white-space: pre-wrap;
+  border: 1px dashed #A5D6A7; /* Dashed light green border */
 }
 
 .teacher-notes-field {
-  margin-top: 8px;
-}
-
-.full-width-field {
-  width: 100%;
+  margin-top: 10px;
 }
 
 .mat-mdc-card-actions {
   padding: 8px 16px !important;
+  border-top: 1px solid #E8F5E9; /* Light green separator */
+  margin-top: 10px;
 }
 
 .accept-button {

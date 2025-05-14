@@ -1,18 +1,15 @@
-<div class="bookings-container">
-  <mat-toolbar color="primary">
-    <span>Find Available Lessons - {{ currentMonthDisplay }}</span>
-  </mat-toolbar>
-
-  <div class="calendar-header">
-    <h2>Browse Teacher Availability</h2>
-    <p>Click on a green day to see available slots from teachers you follow.</p>
+<div class="page-content-container">
+  <div class="page-header">
+    <h1>Find Available Lessons</h1>
+    <p>Browse availability for {{ currentMonthDisplay }} from teachers you follow.</p>
   </div>
 
-  <div *ngIf="isLoading" class="loading-indicator">
-    <mat-spinner diameter="50"></mat-spinner>
+  <div *ngIf="isLoading" class="loading-spinner-container">
+    <mat-progress-spinner diameter="50"></mat-progress-spinner>
   </div>
 
   <div *ngIf="!isLoading && currentUser && calendarWeeks.length > 0" class="calendar-table-container">
+    <p class="calendar-info">Click on a green day to see available slots.</p>
     <table class="calendar-table">
       <thead>
         <tr>
@@ -43,12 +40,12 @@
     </table>
   </div>
 
-  <div *ngIf="!isLoading && currentUser && (!currentUser.subscribedTeacherIds || currentUser.subscribedTeacherIds.length === 0)" class="no-subscriptions-message">
+  <div *ngIf="!isLoading && currentUser && (!currentUser.subscribedTeacherIds || currentUser.subscribedTeacherIds.length === 0)" class="no-data-message">
     <p>You are not subscribed to any teachers. Please search for teachers and subscribe to view their availability.</p>
     <button mat-stroked-button color="primary" routerLink="/search">Search Teachers</button>
   </div>
 
-  <div *ngIf="!isLoading && !currentUser" class="no-user-message">
+  <div *ngIf="!isLoading && !currentUser" class="no-data-message">
     <p>Please log in to book lessons.</p>
   </div>
 </div>

@@ -1,48 +1,52 @@
-.profile-container {
+.profile-card-content { /* Renamed from profile-card to avoid conflict with page-header parent */
+  max-width: 700px;
+  margin: 0 auto; /* Center the card */
   padding: 20px;
-  background-color: #f9f9f9;
-  min-height: calc(100vh - 64px); /* Adjust if toolbar height is different */
 }
 
-.profile-card {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
+.profile-card-mat-header {
+  padding-bottom: 20px; /* Add some space below the header */
 }
 
 .profile-avatar {
-  width: 80px;
-  height: 80px;
+  width: 70px; /* Slightly smaller */
+  height: 70px;
   border-radius: 50%;
   object-fit: cover;
   margin-right: 16px;
-  border: 2px solid #3f51b5; /* Primary color border */
+  border: 2px solid #4CAF50; /* Green border */
+}
+
+.profile-main-title {
+    font-size: 1.4em; /* Adjust if needed */
 }
 
 .profile-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-top: 20px;
-}
-
-.full-width-field {
-  width: 100%;
+  gap: 18px; /* Increased gap slightly */
+  margin-top: 10px;
 }
 
 .profile-picture-preview-container {
-  margin-top: 10px;
+  margin-top: 12px;
   text-align: center;
 }
 
-.profile-picture-preview {
-  max-width: 150px;
-  max-height: 150px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  margin-top: 8px;
+.preview-label {
+  margin-bottom: 6px;
+  font-size: 0.9em;
+  color: #666;
 }
 
-mat-card-actions {
-  margin-top: 20px;
+.profile-picture-preview {
+  max-width: 120px; /* Slightly smaller */
+  max-height: 120px;
+  border-radius: 6px; /* Consistent rounding */
+  border: 1px solid #ccc;
+  margin-top: 4px;
+}
+
+.profile-actions {
+  margin-top: 24px; /* More space above actions */
 }

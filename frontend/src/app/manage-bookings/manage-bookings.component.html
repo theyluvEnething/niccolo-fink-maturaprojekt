@@ -1,28 +1,29 @@
-<div class="manage-bookings-container">
-  <mat-toolbar color="primary">
-    <span>Manage All Booking Requests</span>
-  </mat-toolbar>
-
-  <div *ngIf="isLoading" class="loading-indicator">
-    <mat-spinner diameter="50"></mat-spinner>
+<div class="page-content-container">
+  <div class="page-header">
+    <h1>Manage Booking Requests</h1>
+    <p>Review and respond to lesson requests from students.</p>
   </div>
 
-  <div *ngIf="!isLoading && allBookingRequests.length === 0" class="no-requests-message">
+  <div *ngIf="isLoading" class="loading-spinner-container">
+    <mat-progress-spinner diameter="50"></mat-progress-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && allBookingRequests.length === 0" class="no-data-message">
     <p>No booking requests found.</p>
   </div>
 
-  <div *ngIf="!isLoading && allBookingRequests.length > 0" class="requests-list-container">
-    <mat-card *ngFor="let request of allBookingRequests" class="request-card" [ngClass]="getStatusClass(request.status)">
+  <div *ngIf="!isLoading && allBookingRequests.length > 0" class="requests-list-container grid-container">
+    <mat-card *ngFor="let request of allBookingRequests" class="request-card item-card" [ngClass]="getStatusClass(request.status)">
       <mat-card-header>
-        <img mat-card-avatar [src]="request.student?.profilePictureUrl" alt="Student Avatar" class="student-avatar">
-        <mat-card-title>{{ request.student?.fullName || 'Unknown Student' }}</mat-card-title>
-        <mat-card-subtitle>
-          Requested Slot: {{ formatRequestTime(request) }} <br>
-          Request Date: {{ getRequestDate(request) }}
+        <img mat-card-avatar [src]="request.student?.profilePictureUrl || defaultProfilePic" alt="Student Avatar" class="item-avatar">
+        <mat-card-title class="item-title">{{ request.student?.fullName || 'Unknown Student' }}</mat-card-title>
+        <mat-card-subtitle class="request-details">
+          Slot: {{ formatRequestTime(request) }} <br>
+          Requested: {{ getRequestDate(request) }}
         </mat-card-subtitle>
-        <span class="request-status" [ngClass]="getStatusClass(request.status)">{{ request.status | titlecase }}</span>
+        <span class="request-status-badge" [ngClass]="getStatusClass(request.status)">{{ request.status | titlecase }}</span>
       </mat-card-header>
-      <mat-card-content>
+      <mat-card-content class="item-card-content">
         <p *ngIf="request.studentNotes" class="notes student-notes">
           <strong>Student Notes:</strong> {{ request.studentNotes }}
         </p>
