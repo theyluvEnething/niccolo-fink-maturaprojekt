@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../services/user.service';
 import { User, CalendarAvailability } from '../models/user.model';
-import { TeacherAvailabilityPopupComponent, TeacherAvailabilityPopupData, TeacherAvailabilityPopupResult } from './components/teacher-availability-popup/teacher-availability-popup.component';
+import { TeacherAvailabilityPopupComponent, TeacherAvailabilityPopupData } from './components/teacher-availability-popup/teacher-availability-popup.component';
 
 interface DayViewModel {
   date: Date;
@@ -11,9 +11,9 @@ interface DayViewModel {
   dayOfMonth: number;
   isToday: boolean;
   isPast: boolean;
+  isCurrentMonth: boolean; // True if the day falls within the primary month being displayed
   totalSlots: number;
   bookedSlots: number;
-  availableSlots: number;
   statusColor: 'default' | 'green' | 'yellow' | 'red';
   statusText: string;
 }
@@ -25,11 +25,13 @@ interface DayViewModel {
 })
 export class MyAvailabilityComponent implements OnInit {
   currentUser: User | null = null;
-  calendarDays: DayViewModel[] = [];
-  teacherAvailabilities: CalendarAvailability[] = [];
+  calendarWeeks: DayViewModel[][] = [];
+  weekDayHeaders = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   isLoading: boolean = false;
+  currentMonthDisplay: string = '';
 
-  private readonly numberOfDaysToShow = 30;
+  private teacherAvailabilities: CalendarAvailability[] = [];
+  private readonly numberOfWeeksToDisplay = 5; // Display 5 weeks (35 days)
 
   constructor(
     private userService: UserService,
@@ -40,71 +42,92 @@ export class MyAvailabilityComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
     if (this.currentUser && this.currentUser.hasTeacherRights) {
-      this.loadTeacherAvailabilities();
+      this.loadTeacherAvailabilitiesAndBuildCalendar();
     } else {
       this.snackBar.open('You do not have permission to view this page.', 'Close', { duration: 3000 });
     }
   }
 
-  private loadTeacherAvailabilities(): void {
+  private loadTeacherAvailabilitiesAndBuildCalendar(): void {
     if (!this.currentUser) return;
     this.isLoading = true;
+
     const today = new Date();
-    const endDate = new Date(today);
-    endDate.setDate(today.getDate() + this.numberOfDaysToShow - 1);
+    const firstDayOfCalendar = this.getMondayOfWeek(today);
+    const lastDayOfCalendar = new Date(firstDayOfCalendar);
+    lastDayOfCalendar.setDate(firstDayOfCalendar.getDate() + (this.numberOfWeeksToDisplay * 7) - 1);
 
     this.teacherAvailabilities = this.userService.getTeacherAvailabilityForPeriod(
       this.currentUser.id,
-      this.formatDateToYYYYMMDD(today),
-      this.formatDateToYYYYMMDD(endDate)
+      this.formatDateToYYYYMMDD(firstDayOfCalendar),
+      this.formatDateToYYYYMMDD(lastDayOfCalendar)
     );
-    this.generateCalendarDays();
+    this.generateCalendarWeeks(firstDayOfCalendar);
     this.isLoading = false;
   }
 
-  private generateCalendarDays(): void {
-    this.calendarDays = [];
+  private getMondayOfWeek(date: Date): Date {
+    const d = new Date(date);
+    d.setHours(0, 0, 0, 0);
+    const day = d.getDay();
+    const diff = d.getDate() - day + (day === 0 ? -6 : 1); // Adjust if Sunday
+    return new Date(d.setDate(diff));
+  }
+
+  private generateCalendarWeeks(startDate: Date): void {
+    this.calendarWeeks = [];
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    for (let i = 0; i < this.numberOfDaysToShow; i++) {
-      const date = new Date(today);
-      date.setDate(today.getDate() + i);
-      const dateString = this.formatDateToYYYYMMDD(date);
+    const primaryMonthDate = new Date(startDate);
+    primaryMonthDate.setDate(startDate.getDate() + Math.floor((this.numberOfWeeksToDisplay * 7) / 2)); // A date roughly in the middle
+    const primaryMonth = primaryMonthDate.getMonth();
+    this.currentMonthDisplay = primaryMonthDate.toLocaleDateString(undefined, { month: 'long', year: 'numeric'});
 
-      const slotsForDay = this.teacherAvailabilities.filter(slot => slot.date === dateString);
-      const totalSlots = slotsForDay.length;
-      const bookedSlots = slotsForDay.filter(slot => slot.sessionId).length;
-      const availableSlots = totalSlots - bookedSlots;
+    let currentDatePointer = new Date(startDate);
 
-      let statusColor: DayViewModel['statusColor'] = 'default';
-      let statusText = 'No slots';
+    for (let week = 0; week < this.numberOfWeeksToDisplay; week++) {
+      const weekDays: DayViewModel[] = [];
+      for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
+        const date = new Date(currentDatePointer);
+        date.setHours(0,0,0,0);
+        const dateString = this.formatDateToYYYYMMDD(date);
 
-      if (totalSlots > 0) {
-        if (bookedSlots === totalSlots) {
-          statusColor = 'red';
-          statusText = 'Fully Booked';
-        } else if (bookedSlots > 0) {
-          statusColor = 'yellow';
-          statusText = `${availableSlots}/${totalSlots} slots available`;
-        } else {
-          statusColor = 'green';
-          statusText = `${totalSlots} slots available`;
+        const slotsForDay = this.teacherAvailabilities.filter(slot => slot.date === dateString);
+        const totalSlots = slotsForDay.length;
+        const bookedSlots = slotsForDay.filter(slot => slot.sessionId).length;
+
+        let statusColor: DayViewModel['statusColor'] = 'default';
+        let statusText = 'No slots';
+
+        if (totalSlots > 0) {
+          if (bookedSlots === totalSlots) {
+            statusColor = 'red';
+            statusText = 'Fully Booked';
+          } else if (bookedSlots > 0) {
+            statusColor = 'yellow';
+            statusText = `${totalSlots - bookedSlots} / ${totalSlots} available`;
+          } else {
+            statusColor = 'green';
+            statusText = `${totalSlots} slots available`;
+          }
         }
-      }
 
-      this.calendarDays.push({
-        date: date,
-        dateString: dateString,
-        dayOfMonth: date.getDate(),
-        isToday: date.toDateString() === today.toDateString(),
-        isPast: date < today,
-        totalSlots: totalSlots,
-        bookedSlots: bookedSlots,
-        availableSlots: availableSlots,
-        statusColor: statusColor,
-        statusText: statusText
-      });
+        weekDays.push({
+          date: new Date(date),
+          dateString: dateString,
+          dayOfMonth: date.getDate(),
+          isToday: date.toDateString() === today.toDateString(),
+          isPast: date < today,
+          isCurrentMonth: date.getMonth() === primaryMonth, // Highlight based on the primary month of the view
+          totalSlots: totalSlots,
+          bookedSlots: bookedSlots,
+          statusColor: statusColor,
+          statusText: statusText
+        });
+        currentDatePointer.setDate(currentDatePointer.getDate() + 1);
+      }
+      this.calendarWeeks.push(weekDays);
     }
   }
 
@@ -113,23 +136,20 @@ export class MyAvailabilityComponent implements OnInit {
       this.snackBar.open('Cannot set availability for past dates.', 'Close', { duration: 3000 });
       return;
     }
-    if (!this.currentUser) return;
+    if (!this.currentUser || !this.currentUser.hasTeacherRights) return;
 
-    const dialogRef = this.dialog.open<TeacherAvailabilityPopupComponent, TeacherAvailabilityPopupData, TeacherAvailabilityPopupResult>(
+    const existingSlotsForDate = this.teacherAvailabilities.filter(slot => slot.date === day.dateString);
+
+    const dialogRef = this.dialog.open<TeacherAvailabilityPopupComponent, TeacherAvailabilityPopupData, any>(
       TeacherAvailabilityPopupComponent,
       {
-        width: '450px',
-        data: { date: day.date }
+        width: '500px',
+        data: { date: day.date, existingSlots: existingSlotsForDate, currentUser: this.currentUser }
       }
     );
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result && this.currentUser) {
-        const { startHour, endHour } = result;
-        this.userService.addAvailabilitySlots(this.currentUser.id, day.dateString, startHour, endHour);
-        this.snackBar.open(`Availability added for ${day.dateString} from ${startHour}:00 to ${endHour}:00`, 'Close', { duration: 3000 });
-        this.loadTeacherAvailabilities(); // Refresh calendar
-      }
+    dialogRef.afterClosed().subscribe(() => {
+        this.loadTeacherAvailabilitiesAndBuildCalendar();
     });
   }
 
@@ -138,9 +158,5 @@ export class MyAvailabilityComponent implements OnInit {
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
-  }
-
-  getDayAbbreviation(date: Date): string {
-    return date.toLocaleDateString(undefined, { weekday: 'short' });
   }
 }

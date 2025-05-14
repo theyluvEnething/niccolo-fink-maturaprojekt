@@ -1,31 +1,83 @@
-<mat-toolbar color="primary" style="justify-content: flex-start;">
-  <span *ngIf="currentUser" style="font-size: 0.95em; padding: 2px 8px; background: #eee; color: #222; border-radius: 6px;">
-    {{ userTitle.toUpperCase() }}
-  </span>
-  <span style="margin-left: 16px;">Chess Training App</span>
-</mat-toolbar>
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>{{ pageTitle }}</h1>
+    <p>Oversee your teaching activities and student progress.</p>
+  </div>
 
-<div style="display: flex; flex-direction: column; align-items: center; margin-top: 2em;">
-  <mat-card style="max-width: 410px; width: 98vw; background: linear-gradient(120deg, #f8fafc, #dbeafe); color: #222;">
-    <mat-card-header>
-      <div mat-card-avatar>
-        <mat-icon color="primary" *ngIf="!currentUser?.hasTeacherRights">school</mat-icon>
-        <mat-icon color="accent" *ngIf="currentUser?.hasTeacherRights">person</mat-icon>
-      </div>
-      <mat-card-title>Welcome, {{ currentUser?.fullName || 'User' }}</mat-card-title>
-      <mat-card-subtitle>
-        {{ userTitle }}
-      </mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <p>
-        This is your personalized dashboard. The calendar feature and booking system will be coming soon! <br>
-        <b>At a glance:</b>
-        <ul>
-          <li *ngIf="!currentUser?.hasTeacherRights">Subscribe to a teacher to see their available hours.</li>
-          <li *ngIf="currentUser?.hasTeacherRights">Add availabilities for students to book training sessions!</li>
-          <li>All users can search for teachers and book lessons if subscribed.</li>
-        </ul>
-    </mat-card-content>
-  </mat-card>
+  <div class="stats-cards-container" *ngIf="currentUser">
+    <mat-card class="stat-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="stat-icon">calendar_today</mat-icon>
+        <mat-card-title class="stat-value">{{ upcomingLessonsCount }}</mat-card-title>
+        <mat-card-subtitle class="stat-label">Upcoming Lessons</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ upcomingLessonsCount }} lessons scheduled</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="stat-icon">hourglass_empty</mat-icon>
+        <mat-card-title class="stat-value">{{ pendingRequestsCount }}</mat-card-title>
+        <mat-card-subtitle class="stat-label">Pending Requests</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ pendingRequestsCount }} new booking requests</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="stat-icon">group</mat-icon>
+        <mat-card-title class="stat-value">{{ totalStudentsCount }}</mat-card-title>
+        <mat-card-subtitle class="stat-label">Total Students</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ totalStudentsCount }} active students</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="actions-activity-container">
+    <mat-card class="action-card quick-actions-card">
+      <mat-card-title>Quick Actions</mat-card-title>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngIf="currentUser?.hasTeacherRights" (click)="navigateTo('/calendar')">
+            <mat-icon matListItemIcon>event_available</mat-icon>
+            <span matListItemTitle>Manage Availability</span>
+          </mat-list-item>
+          <mat-list-item (click)="navigateTo('/lessons')">
+            <mat-icon matListItemIcon>book_online</mat-icon>
+            <span matListItemTitle>View Bookings</span>
+          </mat-list-item>
+          <mat-list-item *ngIf="currentUser?.hasTeacherRights" (click)="navigateTo('/students')">
+            <mat-icon matListItemIcon>supervisor_account</mat-icon>
+            <span matListItemTitle>Manage Students</span>
+          </mat-list-item>
+           <mat-list-item *ngIf="!currentUser?.hasTeacherRights" (click)="navigateTo('/search')">
+            <mat-icon matListItemIcon>search</mat-icon>
+            <span matListItemTitle>Search Teachers</span>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="action-card recent-activity-card">
+      <mat-card-title>Recent Activity</mat-card-title>
+      <mat-card-content>
+        <p class="activity-subtitle">Latest updates and notifications.</p>
+        <mat-list>
+          <mat-list-item *ngFor="let activity of recentActivityItems">
+            <mat-icon matListItemIcon [ngClass]="activity.type === 'success' ? 'success-icon' : 'warning-icon'">
+              {{ activity.type === 'success' ? 'check_circle' : 'warning' }}
+            </mat-icon>
+            <span matListItemTitle>{{ activity.message }}</span>
+          </mat-list-item>
+           <p *ngIf="recentActivityItems.length === 0" class="no-activity">No recent activity.</p>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

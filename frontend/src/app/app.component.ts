@@ -1,33 +1,51 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, NavigationEnd, Event as RouterEvent } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { UserService } from './services/user.service'; // Import UserService
+import { User } from './models/user.model'; // Import User model
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'frontend';
   showSidebar = true;
-  private routerSubscription: Subscription;
+  private routerSubscription: Subscription | undefined;
+  private userSubscription: Subscription | undefined; // For UserService
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private userService: UserService) {} // Inject UserService
+
+  ngOnInit(): void {
     this.routerSubscription = this.router.events.pipe(
       filter((event: RouterEvent): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      if (event.urlAfterRedirects === '/login' || event.url === '/login') {
-        this.showSidebar = false;
-      } else {
-        this.showSidebar = true;
-      }
+      this.updateSidebarVisibility(event.urlAfterRedirects);
     });
+
+    this.userSubscription = this.userService.getCurrentUserObservable().subscribe((user: User | null) => {
+      this.updateSidebarVisibility(this.router.url);
+    });
+
+    this.updateSidebarVisibility(this.router.url);
+  }
+
+  private updateSidebarVisibility(currentUrl: string): void {
+    if (currentUrl === '/login' || !this.userService.getCurrentUser()) {
+      this.showSidebar = false;
+    } else {
+      this.showSidebar = true;
+    }
   }
 
   ngOnDestroy(): void {
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe();
+    }
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
     }
   }
 }

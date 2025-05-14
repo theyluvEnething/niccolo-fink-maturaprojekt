@@ -1,1 +1,46 @@
-<p>profile works!</p>
+<div class="profile-container">
+  <mat-toolbar color="primary">
+    <span>My Profile</span>
+  </mat-toolbar>
+
+  <mat-card class="profile-card">
+    <mat-card-header>
+      <img mat-card-avatar [src]="editableUser.profilePictureUrl || defaultProfilePic" alt="Profile Picture" class="profile-avatar">
+      <mat-card-title>{{ editableUser.fullName || 'User Profile' }}</mat-card-title>
+      <mat-card-subtitle>{{ editableUser.email }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="profile-form">
+      <mat-form-field appearance="outline" class="full-width-field">
+        <mat-label>Full Name</mat-label>
+        <input matInput [(ngModel)]="editableUser.fullName" name="fullName" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width-field">
+        <mat-label>Chess Title (e.g., GM, IM, FM, CM, WGM, NM, or custom)</mat-label>
+        <input matInput [(ngModel)]="editableUser.chessTitle" name="chessTitle">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width-field">
+        <mat-label>Rating (e.g., FIDE or Online)</mat-label>
+        <input matInput type="number" [(ngModel)]="editableUser.rating" name="rating">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width-field">
+        <mat-label>Profile Picture URL</mat-label>
+        <input matInput [(ngModel)]="editableUser.profilePictureUrl" name="profilePictureUrl" (input)="onProfilePicUrlChange()">
+        <mat-hint>Enter a valid image URL. Defaults to placeholder if empty or invalid.</mat-hint>
+      </mat-form-field>
+       <div class="profile-picture-preview-container" *ngIf="editableUser.profilePictureUrl">
+          <p>Preview:</p>
+          <img [src]="editableUser.profilePictureUrl" alt="Profile Picture Preview" class="profile-picture-preview" (error)="handleImageError()">
+      </div>
+
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-flat-button color="primary" (click)="saveProfile()" [disabled]="!isProfileChanged()">
+        <mat-icon>save</mat-icon> Save Changes
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

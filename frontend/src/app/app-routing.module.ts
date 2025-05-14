@@ -7,23 +7,25 @@ import { LessonBookingsComponent } from './lesson-bookings/lesson-bookings.compo
 import { MyStudentsComponent } from './my-students/my-students.component';
 import { SearchComponent } from './search/search.component';
 import { TeacherGuard } from './guards/teacher.guard';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   {
-    path: 'my-availability',
+    path: 'calendar',
     component: MyAvailabilityComponent,
     canActivate: [TeacherGuard]
   },
-  { path: 'lesson-bookings', component: LessonBookingsComponent },
+  { path: 'lessons', component: LessonBookingsComponent },
   {
-    path: 'my-students',
+    path: 'students',
     component: MyStudentsComponent,
     canActivate: [TeacherGuard]
   },
-  { path: 'search-teacher', component: SearchComponent },
+  { path: 'search', component: SearchComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: '**', redirectTo: 'login' },
 ];
 

@@ -62,45 +62,54 @@
   flex-shrink: 0;
 }
 
-.navigation-list .mat-mdc-list-item {
+.navigation-list {
+  flex-grow: 0; /* Don't let this list grow excessively */
+}
+
+.navigation-list .mat-mdc-list-item,
+.bottom-nav-list .mat-mdc-list-item {
   color: white;
   border-left: 5px solid transparent;
   margin: 2px 0; /* Reduced vertical margin */
   padding-left: 12px; /* Adjust padding for icon centering when collapsed */
   height: 48px; /* Standard Material height */
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .sidebar-container:not(.expanded) .navigation-list .mat-mdc-list-item,
-.sidebar-container:not(.expanded) .logout-section .mat-mdc-list-item {
+.sidebar-container:not(.expanded) .bottom-nav-list .mat-mdc-list-item {
   justify-content: center; /* Center icon when collapsed */
 }
 
 .navigation-list .mat-mdc-list-item:hover,
-.logout-section .mat-mdc-list-item:hover {
+.bottom-nav-list .mat-mdc-list-item:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.navigation-list .mat-mdc-list-item.active-nav-item {
+.navigation-list .mat-mdc-list-item.active-nav-item,
+.bottom-nav-list .mat-mdc-list-item.active-nav-item {
   background-color: #FACC15;
   color: #1E5631;
   border-left-color: #1E5631;
 }
 
 .navigation-list .mat-mdc-list-item.active-nav-item .nav-item-label,
-.navigation-list .mat-mdc-list-item.active-nav-item mat-icon {
+.navigation-list .mat-mdc-list-item.active-nav-item mat-icon,
+.bottom-nav-list .mat-mdc-list-item.active-nav-item .nav-item-label,
+.bottom-nav-list .mat-mdc-list-item.active-nav-item mat-icon {
   color: #1E5631; /* Ensure text and icon in active item have contrast */
 }
 
 .navigation-list .mat-mdc-list-item mat-icon,
-.logout-section .mat-mdc-list-item mat-icon {
+.bottom-nav-list .mat-mdc-list-item mat-icon {
   margin-right: 16px;
   color: white;
   transition: margin-right 0.225s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .sidebar-container:not(.expanded) .navigation-list .mat-mdc-list-item mat-icon,
-.sidebar-container:not(.expanded) .logout-section .mat-mdc-list-item mat-icon {
+.sidebar-container:not(.expanded) .bottom-nav-list .mat-mdc-list-item mat-icon {
   margin-right: 0; /* No margin for icon when collapsed */
 }
 
@@ -115,74 +124,69 @@
   opacity: 1;
 }
 
-.planned-features {
-  padding: 16px;
-  overflow: hidden; /* Prevent content overflow during transition */
+.sidebar-spacer {
+  flex-grow: 1; /* Pushes items below it to the bottom */
 }
 
-.planned-features-title {
-  font-size: 0.9em;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: rgba(255, 255, 255, 0.8);
+.user-profile-section {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.profile-picture-sidebar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 12px;
+  object-fit: cover;
+  border: 2px solid #FFD700; /* Gold border for profile pic */
+}
+
+.user-info-sidebar {
+  display: flex;
+  flex-direction: column;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.planned-feature-item .mat-mdc-list-item-title-line,
-.planned-feature-item .mat-mdc-list-item-leading-icon {
+.user-name-sidebar {
+  font-weight: 500;
+  font-size: 0.95em;
+  color: white;
+}
+
+.user-title-sidebar {
+  font-size: 0.8em;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 0.85em;
-}
-
-.planned-feature-item .mat-mdc-list-item-leading-icon .mat-icon {
-   color: rgba(255, 255, 255, 0.7); /* Ensure planned feature icons are also styled if needed */
-}
-
-.planned-feature-icon {
-  margin-right: 12px !important;
-  font-size: 20px !important;
-  height: 20px !important;
-  width: 20px !important;
-}
-
-.planned-feature-label {
-  white-space: normal;
-  color: rgba(255, 255, 255, 0.7); /* Ensure planned feature labels are styled */
 }
 
 .sidebar-divider {
   border: none;
   height: 1px;
   background-color: rgba(255, 255, 255, 0.2);
-  margin: 8px 16px; /* Adjust margin as needed */
+  margin: 0px 16px 8px 16px;
 }
 
-.logout-section {
-  margin-top: auto; /* Pushes to the bottom, below planned features */
+.bottom-nav-list {
+ padding-bottom: 8px;
 }
 
-.logout-section .mat-mdc-list-item {
-  color: white;
-  border-left: 5px solid transparent;
-  margin: 2px 0;
-  padding-left: 12px;
-  height: 48px;
-  box-sizing: border-box;
-  cursor: pointer;
-}
-
-.logout-section .mat-mdc-list-item .logout-icon {
+.bottom-nav-list .mat-mdc-list-item .logout-icon {
   color: #F44336; /* Red color for logout icon */
 }
 
-.logout-section .mat-mdc-list-item:hover .logout-icon {
+.bottom-nav-list .mat-mdc-list-item:hover .logout-icon {
   color: #D32F2F; /* Darker red on hover */
 }
 
-.logout-section .mat-mdc-list-item .logout-label {
+.bottom-nav-list .mat-mdc-list-item .logout-label {
   color: #F44336; /* Red color for logout label */
 }
 
-.logout-section .mat-mdc-list-item:hover .logout-label {
+.bottom-nav-list .mat-mdc-list-item:hover .logout-label {
   color: #D32F2F; /* Darker red on hover */
 }

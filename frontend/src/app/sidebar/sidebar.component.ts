@@ -1,19 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
+import { Subscription } from 'rxjs';
 
 interface NavItem {
   label: string;
   icon: string;
   route: string;
   teacherOnly?: boolean;
-}
-
-interface PlannedFeature {
-  label: string;
-  icon: string;
 }
 
 @Component({
@@ -32,28 +28,33 @@ interface PlannedFeature {
     ])
   ]
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
   isExpanded = false;
   currentUser: User | null = null;
+  defaultProfilePic = 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
+  private userSubscription: Subscription | undefined;
+
 
   navItems: NavItem[] = [
-    { label: 'Dashboard', icon: 'dashboard', route: '/dashboard' },
-    { label: 'My Availability', icon: 'event_available', route: '/my-availability', teacherOnly: true },
-    { label: 'Lesson Bookings', icon: 'book_online', route: '/lesson-bookings' },
-    { label: 'My Students', icon: 'group', route: '/my-students', teacherOnly: true },
-    { label: 'Search Teacher', icon: 'search', route: '/search-teacher' }
-  ];
-
-  plannedFeatures: PlannedFeature[] = [
-    { label: 'Integrated Chat (Soon)', icon: 'chat_bubble_outline' },
-    { label: 'Analysis Tool (Soon)', icon: 'analytics' },
-    { label: 'Video Calls (Soon)', icon: 'videocam' }
+    { label: 'Home', icon: 'home', route: '/home' },
+    { label: 'My Calendar', icon: 'event_available', route: '/calendar', teacherOnly: true },
+    { label: 'My Lessons', icon: 'book_online', route: '/lessons' },
+    { label: 'My Students', icon: 'group', route: '/students', teacherOnly: true },
+    { label: 'Search Teachers', icon: 'search', route: '/search' }
   ];
 
   constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit(): void {
-    this.currentUser = this.userService.getCurrentUser();
+    this.userSubscription = this.userService.getCurrentUserObservable().subscribe(user => {
+      this.currentUser = user;
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
   }
 
   toggleSidebar(): void {

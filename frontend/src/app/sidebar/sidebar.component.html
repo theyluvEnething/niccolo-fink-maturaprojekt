@@ -25,19 +25,23 @@
     </ng-container>
   </mat-nav-list>
 
-  <div *ngIf="isExpanded" class="planned-features">
-    <h3 class="planned-features-title">Planned Features:</h3>
-    <mat-list>
-      <mat-list-item *ngFor="let feature of plannedFeatures" class="planned-feature-item">
-        <mat-icon matListItemIcon class="planned-feature-icon">{{feature.icon}}</mat-icon>
-        <span matListItemTitle class="planned-feature-label">{{feature.label}}</span>
-      </mat-list-item>
-    </mat-list>
+  <div class="sidebar-spacer"></div>
+
+  <div *ngIf="isExpanded && currentUser" class="user-profile-section">
+    <img [src]="currentUser.profilePictureUrl || defaultProfilePic" alt="Profile Picture" class="profile-picture-sidebar">
+    <div class="user-info-sidebar">
+      <span class="user-name-sidebar">{{ currentUser.fullName }}</span>
+      <span class="user-title-sidebar" *ngIf="currentUser.chessTitle">{{ currentUser.chessTitle }}</span>
+    </div>
   </div>
 
   <hr *ngIf="isExpanded" class="sidebar-divider">
 
-  <mat-nav-list class="logout-section">
+  <mat-nav-list class="bottom-nav-list">
+     <a mat-list-item routerLink="/profile" routerLinkActive="active-nav-item" [title]="'Profile'">
+      <mat-icon matListItemIcon>account_circle</mat-icon>
+      <span *ngIf="isExpanded" matListItemTitle class="nav-item-label">Profile</span>
+    </a>
     <a mat-list-item (click)="logout()" [title]="'Logout'">
       <mat-icon matListItemIcon class="logout-icon">logout</mat-icon>
       <span *ngIf="isExpanded" matListItemTitle class="nav-item-label logout-label">Logout</span>

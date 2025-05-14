@@ -1,27 +1,69 @@
-<h2 mat-dialog-title>Add Availability for {{ getFormattedDate() }}</h2>
-<mat-dialog-content class="mat-typography popup-content">
-  <p>Select the time range you will be available.</p>
-  <div class="time-range-selector">
-    <mat-form-field appearance="fill">
-      <mat-label>Start Hour</mat-label>
-      <mat-select [(ngModel)]="startHour">
-        <mat-option *ngFor="let hour of hours" [value]="hour">
-          {{ hour < 10 ? '0' + hour : hour }}:00
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+<h2 mat-dialog-title>Manage Availability for {{ getFormattedDate() }}</h2>
 
-    <mat-form-field appearance="fill">
-      <mat-label>End Hour</mat-label>
-      <mat-select [(ngModel)]="endHour">
-        <mat-option *ngFor="let hour of hours" [value]="hour + 1">
-          {{ hour + 1 < 10 ? '0' + (hour + 1) : (hour + 1) }}:00
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+<mat-dialog-content class="mat-typography popup-content">
+  <div class="add-slot-section">
+    <h3>Add New Slot</h3>
+    <div class="time-selectors-container">
+      <mat-form-field appearance="outline" class="hour-select-field">
+        <mat-label>Start Time</mat-label>
+        <mat-select [(ngModel)]="newStartHour" (selectionChange)="handleSelectorValueChange()">
+          <mat-option *ngFor="let time of timeSlots" [value]="time.value" [disabled]="time.value === 24">
+            {{ time.display }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="hour-select-field">
+        <mat-label>End Time</mat-label>
+        <mat-select [(ngModel)]="newEndHour" (selectionChange)="handleSelectorValueChange()">
+          <mat-option *ngFor="let time of timeSlots" [value]="time.value" [disabled]="time.value === 0">
+            {{ time.display }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="slider-container">
+      <mat-slider discrete="true" [displayWith]="formatHourForSliderDisplay" [step]="sliderStep" [min]="sliderMin" [max]="sliderMax" class="time-slider">
+         <input matSliderStartThumb [(ngModel)]="sliderValueStart" (valueChange)="handleSliderValueChange()">
+         <input matSliderEndThumb [(ngModel)]="sliderValueEnd" (valueChange)="handleSliderValueChange()">
+      </mat-slider>
+    </div>
+
+
+    <button mat-stroked-button color="primary" (click)="onSaveNewSlot()" class="add-slot-button">
+      <mat-icon>add_circle_outline</mat-icon> Add This Slot
+    </button>
   </div>
+
+  <mat-divider *ngIf="existingSlotsOnDate.length > 0"></mat-divider>
+
+  <div *ngIf="existingSlotsOnDate.length > 0" class="existing-slots-section">
+    <h3>Existing Slots for This Day</h3>
+    <mat-list>
+      <mat-list-item *ngFor="let slot of existingSlotsOnDate"
+                     class="existing-slot-item"
+                     [class.booked-slot]="slot.sessionId">
+        <mat-icon matListItemIcon *ngIf="!slot.sessionId">event_available</mat-icon>
+        <mat-icon matListItemIcon *ngIf="slot.sessionId" color="accent">event_busy</mat-icon>
+        <span matListItemTitle class="slot-time-text">{{ formatSlotTime(slot) }}</span>
+        <span matListItemLine *ngIf="slot.sessionId" class="booked-indicator">(Booked)</span>
+        <button mat-icon-button color="warn" *ngIf="!slot.sessionId" (click)="onDeleteSlot(slot.id, $event)" title="Delete this slot" class="delete-button">
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+         <button mat-icon-button disabled *ngIf="slot.sessionId" title="Cannot delete booked slot" class="delete-button">
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+  <p *ngIf="existingSlotsOnDate.length === 0" class="no-slots-message">
+    No availability slots defined for this day yet.
+  </p>
+
 </mat-dialog-content>
+
 <mat-dialog-actions align="end">
-  <button mat-stroked-button (click)="onCancel()">Cancel</button>
-  <button mat-flat-button color="primary" (click)="onSave()" cdkFocusInitial>Save Availability</button>
+  <button mat-flat-button (click)="onCancel()">Close</button>
 </mat-dialog-actions>

@@ -1,43 +1,53 @@
 <div class="availability-container">
   <mat-toolbar color="primary">
-    <span>My Availability</span>
+    <span>My Availability - {{ currentMonthDisplay }}</span>
   </mat-toolbar>
 
   <div class="calendar-header">
-    <h2>Set Your Available Hours</h2>
-    <p>Click on a day to add or modify your availability for the next 30 days.</p>
+    <h2>Manage Your Weekly Availability</h2>
+    <p>Click on a day to add or modify your available time slots.</p>
   </div>
 
   <div *ngIf="isLoading" class="loading-indicator">
     <mat-spinner diameter="50"></mat-spinner>
   </div>
 
-  <div *ngIf="!isLoading && currentUser" class="calendar-grid">
-    <mat-card *ngFor="let day of calendarDays"
-              class="day-card"
+  <div *ngIf="!isLoading && currentUser" class="calendar-table-container">
+    <table class="calendar-table">
+      <thead>
+        <tr>
+          <th *ngFor="let header of weekDayHeaders">{{ header }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let week of calendarWeeks">
+          <td *ngFor="let day of week"
               [class.today]="day.isToday"
               [class.past-day]="day.isPast"
-              [class.status-default]="day.statusColor === 'default'"
-              [class.status-green]="day.statusColor === 'green'"
-              [class.status-yellow]="day.statusColor === 'yellow'"
-              [class.status-red]="day.statusColor === 'red'"
+              [class.other-month]="!day.isCurrentMonth"
+              [class.current-date-outline]="day.isToday"
+              [class.status-default]="day.statusColor === 'default' && !day.isPast && day.isCurrentMonth"
+              [class.status-green]="day.statusColor === 'green' && !day.isPast && day.isCurrentMonth"
+              [class.status-yellow]="day.statusColor === 'yellow' && !day.isPast && day.isCurrentMonth"
+              [class.status-red]="day.statusColor === 'red' && !day.isPast && day.isCurrentMonth"
               (click)="openAvailabilityPopup(day)"
-              [title]="day.isPast ? 'Cannot set availability for past dates' : 'Click to set availability'">
-      <mat-card-header>
-        <div mat-card-avatar class="day-avatar">{{ getDayAbbreviation(day.date) }}</div>
-        <mat-card-title class="day-number">{{ day.dayOfMonth }}</mat-card-title>
-        <mat-card-subtitle class="month-year">{{ day.date | date:'MMM yyyy' }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content class="day-status">
-        <div *ngIf="day.totalSlots > 0" class="slot-indicators">
-            <span *ngFor="let i of [].constructor(day.totalSlots); let idx = index"
-                  class="slot-dot"
-                  [class.booked]="idx < day.bookedSlots">
-            </span>
-        </div>
-        <span class="status-text">{{ day.statusText }}</span>
-      </mat-card-content>
-    </mat-card>
+              [title]="day.isPast ? 'Cannot set availability for past dates' : (day.isCurrentMonth ? 'Click to manage slots' : 'Day not in current view focus')">
+            <div class="day-cell-content">
+              <span class="day-number">{{ day.dayOfMonth }}</span>
+              <div class="slot-info-container" *ngIf="day.isCurrentMonth && !day.isPast">
+                <div *ngIf="day.totalSlots > 0" class="slot-indicators">
+                    <span *ngFor="let i of [].constructor(day.totalSlots); let idx = index"
+                          class="slot-dot"
+                          [class.booked]="idx < day.bookedSlots">
+                    </span>
+                </div>
+                <span class="status-text">{{ day.statusText }}</span>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <div *ngIf="!currentUser && !isLoading" class="no-user-message">

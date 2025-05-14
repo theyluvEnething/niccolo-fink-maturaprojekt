@@ -1,18 +1,94 @@
 .popup-content {
-  min-width: 350px;
+  min-width: 420px; /* Increased width for better layout */
+  max-height: 80vh;
+  overflow-y: auto;
+  padding-top: 16px;
 }
 
-.time-range-selector {
+.add-slot-section {
+  margin-bottom: 24px;
+}
+
+.add-slot-section h3 {
+  margin-bottom: 16px;
+  color: #3f51b5;
+  font-size: 1.1em;
+}
+
+.time-selectors-container {
   display: flex;
-  gap: 20px;
-  align-items: center;
-  margin-top: 16px;
+  justify-content: space-between;
+  gap: 16px; /* Space between start and end hour selectors */
+  margin-bottom: 12px;
 }
 
-.time-range-selector mat-form-field {
-  flex: 1;
+.hour-select-field {
+  flex: 1; /* Each selector takes equal space */
+}
+
+.slider-container {
+  padding: 0 8px; /* Add some padding so thumbs don't touch edges */
+  margin-bottom: 20px; /* Space below slider */
+}
+
+.time-slider {
+  width: 100%;
+}
+
+.add-slot-button {
+  margin-top: 16px;
+  width: 100%;
+}
+
+.existing-slots-section h3 {
+  margin-top: 24px;
+  margin-bottom: 12px;
+  color: #3f51b5;
+  font-size: 1.1em;
+}
+
+.mat-mdc-list-item.existing-slot-item {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 10px 0 !important;
+  display: flex;
+  align-items: center;
+}
+
+.mat-mdc-list-item.existing-slot-item:last-child {
+  border-bottom: none;
+}
+
+.slot-time-text {
+  flex-grow: 1; /* Allow text to take available space */
+}
+
+.booked-slot .slot-time-text,
+.booked-slot .booked-indicator {
+  color: #757575;
+  font-style: italic;
+}
+
+.booked-indicator {
+  font-size: 0.85em;
+  color: #f57f17;
+  margin-left: 8px;
+}
+
+.delete-button {
+  margin-left: auto; /* Push to the right */
+}
+
+.no-slots-message {
+  text-align: center;
+  color: #757575;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+mat-divider {
+  margin: 24px 0;
 }
 
 mat-dialog-actions {
-  padding-top: 16px;
+  padding-top: 20px;
 }

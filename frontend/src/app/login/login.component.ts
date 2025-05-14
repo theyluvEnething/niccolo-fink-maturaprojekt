@@ -26,7 +26,7 @@ export class LoginComponent {
 
     if (user) {
       this.isLoggedIn = true;
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/home']);
     } else {
       this.isLoggedIn = false;
       console.error('Login failed');
