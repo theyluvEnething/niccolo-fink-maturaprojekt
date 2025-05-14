@@ -21,18 +21,27 @@
           <td *ngFor="let day of week"
               [class.today]="day.isToday"
               [class.past-day]="day.isPast"
-              [class.other-month]="!day.isCurrentMonth"
+              [class.status-default]="!day.isCurrentMonth"
               [class.current-date-outline]="day.isToday"
               [class.status-default]="day.statusColor === 'default' && !day.isPast && day.isCurrentMonth"
               [class.status-green]="day.statusColor === 'green' && !day.isPast && day.isCurrentMonth"
               [class.status-yellow]="day.statusColor === 'yellow' && !day.isPast && day.isCurrentMonth"
               [class.status-red]="day.statusColor === 'red' && !day.isPast && day.isCurrentMonth"
               (click)="openAvailabilityPopup(day)"
-              [title]="day.isPast ? 'Cannot set availability for past dates' : (day.isCurrentMonth ? 'Click to manage slots' : 'Day not in current view focus')">
+              [title]="day.isPast ? 'Cannot set availability for past dates' : 'Click to manage slots'">
             <div class="day-cell-content">
               <span class="day-number">{{ day.dayOfMonth }}</span>
               <div class="slot-info-container" *ngIf="day.isCurrentMonth && !day.isPast">
                 <div *ngIf="day.totalSlots > 0" class="slot-indicators">
+                    <span *ngFor="let i of [].constructor(day.totalSlots); let idx = index"
+                          class="slot-dot"
+                          [class.booked]="idx < day.bookedSlots">
+                    </span>
+                </div>
+                <span class="status-text">{{ day.statusText }}</span>
+              </div>
+              <div class="slot-info-container" *ngIf="!day.isCurrentMonth && !day.isPast">
+                 <div *ngIf="day.totalSlots > 0" class="slot-indicators">
                     <span *ngFor="let i of [].constructor(day.totalSlots); let idx = index"
                           class="slot-dot"
                           [class.booked]="idx < day.bookedSlots">

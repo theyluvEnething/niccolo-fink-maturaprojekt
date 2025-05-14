@@ -21,7 +21,7 @@
           <td *ngFor="let day of week"
               [class.today]="day.isToday"
               [class.past-day]="day.isPast"
-              [class.other-month]="!day.isCurrentMonth"
+              [class.status-default]="!day.isCurrentMonth"
               [class.current-date-outline]="day.isToday"
               [class.status-default]="day.statusColor === 'default' && !day.isPast && day.isCurrentMonth"
               [class.status-green]="day.statusColor === 'green' && !day.isPast && day.isCurrentMonth"

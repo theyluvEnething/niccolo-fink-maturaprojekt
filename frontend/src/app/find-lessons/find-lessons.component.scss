@@ -36,15 +36,15 @@
   cursor: default;
   transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   position: relative;
+  background-color: #ffffff; /* Default white background for all cells */
 }
 
 .calendar-table td.status-green:not(.past-day):not(.other-month) {
   cursor: pointer;
-  background-color: #E8F5E9; /* Lightest Green for days with available slots */
 }
 
 .calendar-table td.status-green:not(.past-day):not(.other-month):hover {
-  background-color: #C8E6C9; /* Slightly Darker Green on hover */
+  background-color: #E8F5E9; /* Lightest green on hover */
   box-shadow: inset 0 0 0 2px #A5D6A7; /* Inner border effect on hover */
 }
 
@@ -94,10 +94,13 @@
 
 
 .calendar-table td.other-month {
-  background-color: #f7f7f7;
+  background-color: #f7f7f7; /* Slightly off-white for other month days */
 }
 .calendar-table td.other-month .day-number {
   color: #ccc;
+}
+.calendar-table td.other-month:hover:not(.past-day) {
+  background-color: #E8F5E9; /* Allow hover for future other-month days */
 }
 
 
