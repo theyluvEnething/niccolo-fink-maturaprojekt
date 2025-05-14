@@ -64,11 +64,14 @@
 
 .quick-actions-card .content-list-item {
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease-in-out, border-left-color 0.2s ease-in-out;
+  border-left: 3px solid transparent;
+  padding-left: 13px; /* Adjust for border */
 }
 
 .quick-actions-card .content-list-item:hover {
-  background-color: #f0f4f0; /* Very light green hover */
+  background-color: #C8E6C9; /* More noticeable light green hover */
+  border-left-color: #4CAF50; /* Standard green accent on hover */
 }
 
 .quick-actions-card .content-list-item mat-icon {
@@ -87,6 +90,4 @@
 
 .success-icon { color: #4CAF50; /* Green */ }
 .warning-icon { color: #FFC107; /* Amber */ }
-.info-icon { color: #2196F3; /* Blue (Can be changed to a shade of green if strictly needed) */ }
-/* Let's change info-icon to a lighter green for palette consistency */
 .info-icon { color: #81C784; /* Lighter Green */ }

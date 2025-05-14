@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, NavigationEnd, Event as RouterEvent } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { UserService } from './services/user.service'; // Import UserService
-import { User } from './models/user.model'; // Import User model
+import { UserService } from './services/user.service';
+import { User } from './models/user.model';
 
 @Component({
   selector: 'app-root',
@@ -14,9 +14,9 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'frontend';
   showSidebar = true;
   private routerSubscription: Subscription | undefined;
-  private userSubscription: Subscription | undefined; // For UserService
+  private userSubscription: Subscription | undefined;
 
-  constructor(private router: Router, private userService: UserService) {} // Inject UserService
+  constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit(): void {
     this.routerSubscription = this.router.events.pipe(

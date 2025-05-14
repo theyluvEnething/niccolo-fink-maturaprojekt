@@ -1,14 +1,9 @@
-<div class="sidebar-container"
-     [@sidebarExpansion]="isExpanded ? 'expanded' : 'collapsed'"
-     [class.expanded]="isExpanded">
+<div class="sidebar-container expanded">
   <div class="sidebar-header">
-    <div class="logo-container" [class.expanded]="isExpanded">
+    <div class="logo-container expanded">
       <mat-icon svgIcon="chess-king" class="logo-icon"></mat-icon>
-      <span *ngIf="isExpanded" class="logo-text">ChessConnect</span>
+      <span class="logo-text">ChessConnect</span>
     </div>
-    <button mat-icon-button (click)="toggleSidebar()" class="toggle-button">
-      <mat-icon>{{ isExpanded ? 'menu_open' : 'menu' }}</mat-icon>
-    </button>
   </div>
 
   <mat-nav-list class="navigation-list">
@@ -20,7 +15,7 @@
          [routerLinkActiveOptions]="{exact: true}"
          [title]="item.label">
         <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
-        <span *ngIf="isExpanded" matListItemTitle class="nav-item-label">{{item.label}}</span>
+        <span matListItemTitle class="nav-item-label">{{item.label}}</span>
       </a>
     </ng-container>
 
@@ -32,12 +27,12 @@
          [routerLinkActiveOptions]="{exact: true}"
          [title]="item.label">
         <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
-        <span *ngIf="isExpanded" matListItemTitle class="nav-item-label">{{item.label}}</span>
+        <span matListItemTitle class="nav-item-label">{{item.label}}</span>
       </a>
     </ng-container>
   </mat-nav-list>
 
-  <hr *ngIf="isExpanded && currentUser?.hasTeacherRights" class="sidebar-divider teacher-section-divider">
+  <hr *ngIf="currentUser?.hasTeacherRights" class="sidebar-divider teacher-section-divider">
 
   <mat-nav-list class="navigation-list teacher-specific-list" *ngIf="currentUser?.hasTeacherRights">
      <ng-container *ngFor="let item of teacherNavItems">
@@ -48,7 +43,7 @@
            [routerLinkActiveOptions]="{exact: true}"
            [title]="item.label">
           <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
-          <span *ngIf="isExpanded" matListItemTitle class="nav-item-label">{{item.label}}</span>
+          <span matListItemTitle class="nav-item-label">{{item.label}}</span>
         </a>
       </ng-container>
   </mat-nav-list>
@@ -56,7 +51,7 @@
 
   <div class="sidebar-spacer"></div>
 
-  <div *ngIf="isExpanded && currentUser" class="user-profile-section">
+  <div *ngIf="currentUser" class="user-profile-section">
     <img [src]="currentUser.profilePictureUrl || defaultProfilePic" alt="Profile Picture" class="profile-picture-sidebar">
     <div class="user-info-sidebar">
       <span class="user-name-sidebar">{{ currentUser.fullName }}</span>
@@ -64,16 +59,16 @@
     </div>
   </div>
 
-  <hr *ngIf="isExpanded" class="sidebar-divider">
+  <hr class="sidebar-divider">
 
   <mat-nav-list class="bottom-nav-list">
      <a mat-list-item routerLink="/profile" routerLinkActive="active-nav-item" [title]="'Profile'">
       <mat-icon matListItemIcon>account_circle</mat-icon>
-      <span *ngIf="isExpanded" matListItemTitle class="nav-item-label">Profile</span>
+      <span matListItemTitle class="nav-item-label">Profile</span>
     </a>
     <a mat-list-item (click)="logout()" [title]="'Logout'">
       <mat-icon matListItemIcon class="logout-icon">logout</mat-icon>
-      <span *ngIf="isExpanded" matListItemTitle class="nav-item-label logout-label">Logout</span>
+      <span matListItemTitle class="nav-item-label logout-label">Logout</span>
     </a>
   </mat-nav-list>
 </div>

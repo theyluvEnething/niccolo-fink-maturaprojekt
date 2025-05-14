@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
@@ -15,21 +14,10 @@ interface NavItem {
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss'],
-  animations: [
-    trigger('sidebarExpansion', [
-      state('collapsed', style({
-        width: '70px'
-      })),
-      state('expanded', style({
-        width: '260px'
-      })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
-    ])
-  ]
+  styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit, OnDestroy {
-  isExpanded = false;
+  isExpanded = true; // Sidebar is always expanded
   currentUser: User | null = null;
   defaultProfilePic = 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
   private userSubscription: Subscription | undefined;
@@ -62,10 +50,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
     if (this.userSubscription) {
       this.userSubscription.unsubscribe();
     }
-  }
-
-  toggleSidebar(): void {
-    this.isExpanded = !this.isExpanded;
   }
 
   logout(): void {

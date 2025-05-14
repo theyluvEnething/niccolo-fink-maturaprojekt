@@ -4,8 +4,12 @@
   background-color: #e8f5e9;
 }
 
-.app-sidebar-container {
-  overflow: hidden;
+.app-sidebar-element {
+  width: 260px; /* Fixed expanded width */
+  background-color: transparent; /* Sidebar component handles its own background */
+  border-right: none !important;
+  box-shadow: none !important;
+  overflow-x: hidden; /* Prevent horizontal scroll from sidebar content */
 }
 
 .app-main-content {
