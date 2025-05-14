@@ -18,6 +18,8 @@ import { MyAvailabilityComponent } from './my-availability/my-availability.compo
 import { LessonBookingsComponent } from './lesson-bookings/lesson-bookings.component';
 import { MyStudentsComponent } from './my-students/my-students.component';
 import { TeacherAvailabilityPopupComponent } from './my-availability/components/teacher-availability-popup/teacher-availability-popup.component';
+import { BookingRequestPopupComponent } from './lesson-bookings/components/booking-request-popup/booking-request-popup.component';
+import { PendingBookingsComponent } from './pending-bookings/pending-bookings.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -34,6 +36,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 @NgModule({
@@ -48,7 +51,9 @@ import { MatSliderModule } from '@angular/material/slider';
     MyAvailabilityComponent,
     LessonBookingsComponent,
     MyStudentsComponent,
-    TeacherAvailabilityPopupComponent
+    TeacherAvailabilityPopupComponent,
+    BookingRequestPopupComponent,
+    PendingBookingsComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +75,8 @@ import { MatSliderModule } from '@angular/material/slider';
     MatProgressSpinnerModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSliderModule
+    MatSliderModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
