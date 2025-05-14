@@ -1,1 +1,85 @@
+.my-students-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  min-height: calc(100vh - 64px);
+}
 
+.search-bar-container {
+  margin: 0 auto 24px auto;
+  max-width: 700px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.loading-spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+}
+
+.no-results-message {
+  text-align: center;
+  padding: 30px;
+  font-size: 1.1em;
+  color: #757575;
+}
+
+.students-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.student-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.student-card:hover {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.student-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #eee;
+}
+
+.mat-mdc-card-header-text {
+  margin-left: 12px !important;
+}
+
+.student-subtitle {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.subtitle-separator {
+  margin: 0 4px;
+}
+
+.student-card-content {
+  font-size: 0.9em;
+  color: #555;
+  padding-top: 8px;
+}
+
+.student-card-content p {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.content-icon {
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+  margin-right: 8px;
+  color: #777;
+}

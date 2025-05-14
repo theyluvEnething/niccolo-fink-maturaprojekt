@@ -44,12 +44,7 @@ export class MyBookedLessonsComponent implements OnInit, OnDestroy {
     this.userSubscription = this.userService.getCurrentUserObservable().subscribe(user => {
       if (user) {
         this.currentUser = user;
-        if (this.currentUser.hasTeacherRights) {
-          this.snackBar.open('This page is for students to view their booked lessons.', 'Close', { duration: 3000 });
-          this.router.navigate(['/home']);
-        } else {
-          this.loadBookedLessons();
-        }
+        this.loadBookedLessons();
       } else {
         this.router.navigate(['/login']);
       }

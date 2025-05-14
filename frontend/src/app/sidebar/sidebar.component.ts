@@ -37,16 +37,15 @@ export class SidebarComponent implements OnInit, OnDestroy {
   commonNavItems: NavItem[] = [
     { label: 'Home', icon: 'home', route: '/home', type: 'all' },
     { label: 'Find Lessons', icon: 'event_seat', route: '/find-lessons', type: 'all' },
+    { label: 'My Booked Lessons', icon: 'event_note', route: '/my-booked-lessons', type: 'all' },
     { label: 'Search Teachers', icon: 'search', route: '/search', type: 'all' },
   ];
 
-  studentNavItems: NavItem[] = [
-    { label: 'My Booked Lessons', icon: 'event_note', route: '/my-booked-lessons', type: 'student' },
-  ];
+  studentNavItems: NavItem[] = [];
 
   teacherNavItems: NavItem[] = [
-    { label: 'My Calendar', icon: 'event_available', route: '/calendar', type: 'teacher' },
     { label: 'Manage Bookings', icon: 'rule_folder', route: '/manage-bookings', type: 'teacher' },
+    { label: 'My Calendar', icon: 'event_available', route: '/calendar', type: 'teacher' },
     { label: 'My Students', icon: 'group', route: '/students', type: 'teacher' },
   ];
 
@@ -83,6 +82,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
     if (item.type === 'student') {
       return !this.currentUser.hasTeacherRights;
     }
-    return true; // type 'all'
+    return true;
   }
 }
