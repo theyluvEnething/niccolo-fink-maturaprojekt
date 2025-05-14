@@ -1,0 +1,8 @@
+<mat-sidenav-container class="app-container">
+  <mat-sidenav mode="side" opened class="app-sidebar-container" *ngIf="showSidebar">
+    <app-sidebar></app-sidebar>
+  </mat-sidenav>
+  <mat-sidenav-content class="app-main-content" [class.no-sidebar]="!showSidebar">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

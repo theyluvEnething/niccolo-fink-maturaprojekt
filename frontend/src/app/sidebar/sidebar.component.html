@@ -1,0 +1,46 @@
+<div class="sidebar-container"
+     [@sidebarExpansion]="isExpanded ? 'expanded' : 'collapsed'"
+     [class.expanded]="isExpanded">
+  <div class="sidebar-header">
+    <div class="logo-container" [class.expanded]="isExpanded">
+      <mat-icon svgIcon="chess-king" class="logo-icon"></mat-icon>
+      <span *ngIf="isExpanded" class="logo-text">ChessConnect</span>
+    </div>
+    <button mat-icon-button (click)="toggleSidebar()" class="toggle-button">
+      <mat-icon>{{ isExpanded ? 'menu_open' : 'menu' }}</mat-icon>
+    </button>
+  </div>
+
+  <mat-nav-list class="navigation-list">
+    <ng-container *ngFor="let item of navItems">
+      <a mat-list-item
+         *ngIf="shouldShowItem(item)"
+         [routerLink]="item.route"
+         routerLinkActive="active-nav-item"
+         [routerLinkActiveOptions]="{exact: true}"
+         [title]="item.label">
+        <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+        <span *ngIf="isExpanded" matListItemTitle class="nav-item-label">{{item.label}}</span>
+      </a>
+    </ng-container>
+  </mat-nav-list>
+
+  <div *ngIf="isExpanded" class="planned-features">
+    <h3 class="planned-features-title">Planned Features:</h3>
+    <mat-list>
+      <mat-list-item *ngFor="let feature of plannedFeatures" class="planned-feature-item">
+        <mat-icon matListItemIcon class="planned-feature-icon">{{feature.icon}}</mat-icon>
+        <span matListItemTitle class="planned-feature-label">{{feature.label}}</span>
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+  <hr *ngIf="isExpanded" class="sidebar-divider">
+
+  <mat-nav-list class="logout-section">
+    <a mat-list-item (click)="logout()" [title]="'Logout'">
+      <mat-icon matListItemIcon class="logout-icon">logout</mat-icon>
+      <span *ngIf="isExpanded" matListItemTitle class="nav-item-label logout-label">Logout</span>
+    </a>
+  </mat-nav-list>
+</div>

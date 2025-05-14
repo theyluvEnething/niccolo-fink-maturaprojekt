@@ -1,0 +1,188 @@
+:host {
+  display: block;
+  height: 100%;
+  background-color: #1E5631; /* Dark green background */
+  color: white;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 10px; /* Reduced top padding */
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Aligns logo and toggle button */
+  padding: 0 10px 10px 10px; /* Consistent padding */
+  min-height: 48px; /* Ensure header has a minimum height */
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  transition: margin-left 0.225s cubic-bezier(0.4, 0.0, 0.2, 1);
+  margin-left: 8px; /* Default margin for collapsed state */
+}
+
+.logo-container.expanded {
+  margin-left: 6px; /* Slightly adjust if needed when expanded */
+}
+
+.logo-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+  color: #FFD700; /* Gold for the logo icon */
+  flex-shrink: 0;
+}
+
+.logo-text {
+  font-size: 1.5em;
+  font-weight: bold;
+  white-space: nowrap;
+  margin-left: 8px;
+  opacity: 0;
+  transition: opacity 0.225s cubic-bezier(0.4, 0.0, 0.2, 1);
+  color: white; /* Ensure logo text is white */
+}
+
+.sidebar-container.expanded .logo-text {
+  opacity: 1;
+}
+
+.toggle-button {
+  color: white;
+  margin-right: 2px; /* Margin for spacing */
+  flex-shrink: 0;
+}
+
+.navigation-list .mat-mdc-list-item {
+  color: white;
+  border-left: 5px solid transparent;
+  margin: 2px 0; /* Reduced vertical margin */
+  padding-left: 12px; /* Adjust padding for icon centering when collapsed */
+  height: 48px; /* Standard Material height */
+  box-sizing: border-box;
+}
+
+.sidebar-container:not(.expanded) .navigation-list .mat-mdc-list-item,
+.sidebar-container:not(.expanded) .logout-section .mat-mdc-list-item {
+  justify-content: center; /* Center icon when collapsed */
+}
+
+.navigation-list .mat-mdc-list-item:hover,
+.logout-section .mat-mdc-list-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navigation-list .mat-mdc-list-item.active-nav-item {
+  background-color: #FACC15;
+  color: #1E5631;
+  border-left-color: #1E5631;
+}
+
+.navigation-list .mat-mdc-list-item.active-nav-item .nav-item-label,
+.navigation-list .mat-mdc-list-item.active-nav-item mat-icon {
+  color: #1E5631; /* Ensure text and icon in active item have contrast */
+}
+
+.navigation-list .mat-mdc-list-item mat-icon,
+.logout-section .mat-mdc-list-item mat-icon {
+  margin-right: 16px;
+  color: white;
+  transition: margin-right 0.225s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.sidebar-container:not(.expanded) .navigation-list .mat-mdc-list-item mat-icon,
+.sidebar-container:not(.expanded) .logout-section .mat-mdc-list-item mat-icon {
+  margin-right: 0; /* No margin for icon when collapsed */
+}
+
+.nav-item-label {
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.225s cubic-bezier(0.4, 0.0, 0.2, 1);
+  color: white; /* Ensure nav item labels are white */
+}
+
+.sidebar-container.expanded .nav-item-label {
+  opacity: 1;
+}
+
+.planned-features {
+  padding: 16px;
+  overflow: hidden; /* Prevent content overflow during transition */
+}
+
+.planned-features-title {
+  font-size: 0.9em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  white-space: nowrap;
+}
+
+.planned-feature-item .mat-mdc-list-item-title-line,
+.planned-feature-item .mat-mdc-list-item-leading-icon {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85em;
+}
+
+.planned-feature-item .mat-mdc-list-item-leading-icon .mat-icon {
+   color: rgba(255, 255, 255, 0.7); /* Ensure planned feature icons are also styled if needed */
+}
+
+.planned-feature-icon {
+  margin-right: 12px !important;
+  font-size: 20px !important;
+  height: 20px !important;
+  width: 20px !important;
+}
+
+.planned-feature-label {
+  white-space: normal;
+  color: rgba(255, 255, 255, 0.7); /* Ensure planned feature labels are styled */
+}
+
+.sidebar-divider {
+  border: none;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 8px 16px; /* Adjust margin as needed */
+}
+
+.logout-section {
+  margin-top: auto; /* Pushes to the bottom, below planned features */
+}
+
+.logout-section .mat-mdc-list-item {
+  color: white;
+  border-left: 5px solid transparent;
+  margin: 2px 0;
+  padding-left: 12px;
+  height: 48px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.logout-section .mat-mdc-list-item .logout-icon {
+  color: #F44336; /* Red color for logout icon */
+}
+
+.logout-section .mat-mdc-list-item:hover .logout-icon {
+  color: #D32F2F; /* Darker red on hover */
+}
+
+.logout-section .mat-mdc-list-item .logout-label {
+  color: #F44336; /* Red color for logout label */
+}
+
+.logout-section .mat-mdc-list-item:hover .logout-label {
+  color: #D32F2F; /* Darker red on hover */
+}
