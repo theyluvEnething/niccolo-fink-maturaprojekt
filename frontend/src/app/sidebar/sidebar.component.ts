@@ -10,6 +10,7 @@ interface NavItem {
   icon: string;
   route: string;
   teacherOnly?: boolean;
+  studentOnly?: boolean;
 }
 
 @Component({
@@ -38,9 +39,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
   navItems: NavItem[] = [
     { label: 'Home', icon: 'home', route: '/home' },
     { label: 'My Calendar', icon: 'event_available', route: '/calendar', teacherOnly: true },
-    { label: 'My Lessons', icon: 'book_online', route: '/lessons' },
+    { label: 'My Lessons', icon: 'history_edu', route: '/lessons', studentOnly: true },
+    { label: 'Pending Bookings', icon: 'pending_actions', route: '/pending-bookings', teacherOnly: true },
+    { label: 'Manage Bookings', icon: 'rule_folder', route: '/manage-bookings', teacherOnly: true },
     { label: 'My Students', icon: 'group', route: '/students', teacherOnly: true },
-    { label: 'Search Teachers', icon: 'search', route: '/search' }
+    { label: 'Search Teachers', icon: 'search', route: '/search', studentOnly: true }
   ];
 
   constructor(private router: Router, private userService: UserService) {}
@@ -67,9 +70,13 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   shouldShowItem(item: NavItem): boolean {
-    if (!item.teacherOnly) {
-      return true;
+    if (!this.currentUser) return false;
+    if (item.teacherOnly) {
+      return this.currentUser.hasTeacherRights;
     }
-    return !!this.currentUser?.hasTeacherRights;
+    if (item.studentOnly) {
+      return !this.currentUser.hasTeacherRights;
+    }
+    return true;
   }
 }

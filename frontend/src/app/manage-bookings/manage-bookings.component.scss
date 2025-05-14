@@ -1,0 +1,93 @@
+.manage-bookings-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  min-height: calc(100vh - 64px);
+}
+
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  margin-top: 30px;
+}
+
+.no-requests-message {
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 1.2em;
+  color: #757575;
+}
+
+.requests-list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.request-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: relative;
+  border-left: 5px solid transparent; /* For status indication */
+}
+
+.request-card.status-pending { border-left-color: #FFC107; /* Amber */ }
+.request-card.status-accepted { border-left-color: #4CAF50; /* Green */ }
+.request-card.status-rejected { border-left-color: #F44336; /* Red */ }
+
+
+.student-avatar {
+  border: 1px solid #eee;
+}
+
+.mat-mdc-card-header {
+  position: relative;
+}
+
+.mat-mdc-card-header-text {
+  margin-left: 12px !important;
+}
+
+.request-status {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  font-weight: 500;
+  color: white;
+}
+
+.request-status.status-pending { background-color: #FFC107; }
+.request-status.status-accepted { background-color: #4CAF50; }
+.request-status.status-rejected { background-color: #F44336; }
+
+.notes {
+  font-size: 0.9em;
+  color: #555;
+  margin-bottom: 12px;
+  padding: 8px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  white-space: pre-wrap; /* Preserve line breaks in notes */
+}
+
+.teacher-notes-field {
+  margin-top: 8px;
+}
+
+.full-width-field {
+  width: 100%;
+}
+
+.mat-mdc-card-actions {
+  padding: 8px 16px !important;
+}
+
+.accept-button {
+  margin-left: 8px;
+}

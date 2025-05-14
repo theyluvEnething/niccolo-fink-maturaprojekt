@@ -8,6 +8,8 @@ import { MyStudentsComponent } from './my-students/my-students.component';
 import { SearchComponent } from './search/search.component';
 import { TeacherGuard } from './guards/teacher.guard';
 import { ProfileComponent } from './profile/profile.component';
+import { PendingBookingsComponent } from './pending-bookings/pending-bookings.component';
+import { ManageBookingsComponent } from './manage-bookings/manage-bookings.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -26,6 +28,16 @@ const routes: Routes = [
   },
   { path: 'search', component: SearchComponent },
   { path: 'profile', component: ProfileComponent },
+  {
+    path: 'pending-bookings',
+    component: PendingBookingsComponent,
+    canActivate: [TeacherGuard]
+  },
+  {
+    path: 'manage-bookings',
+    component: ManageBookingsComponent,
+    canActivate: [TeacherGuard]
+  },
   { path: '**', redirectTo: 'login' },
 ];
 

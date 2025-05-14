@@ -20,6 +20,7 @@ import { MyStudentsComponent } from './my-students/my-students.component';
 import { TeacherAvailabilityPopupComponent } from './my-availability/components/teacher-availability-popup/teacher-availability-popup.component';
 import { BookingRequestPopupComponent } from './lesson-bookings/components/booking-request-popup/booking-request-popup.component';
 import { PendingBookingsComponent } from './pending-bookings/pending-bookings.component';
+import { ManageBookingsComponent } from './manage-bookings/manage-bookings.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -53,7 +54,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MyStudentsComponent,
     TeacherAvailabilityPopupComponent,
     BookingRequestPopupComponent,
-    PendingBookingsComponent
+    PendingBookingsComponent,
+    ManageBookingsComponent
   ],
   imports: [
     BrowserModule,
