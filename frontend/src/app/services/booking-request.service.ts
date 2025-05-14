@@ -17,7 +17,7 @@ export class BookingRequestService {
     private sessionService: SessionService
   ) {}
 
-  createBookingRequest(studentId: string, teacherId: string, availabilitySlotId: string): BookingRequest | null {
+  createBookingRequest(studentId: string, teacherId: string, availabilitySlotId: string, studentNotes?: string): BookingRequest | null {
     const student = this.userService.getUserById(studentId);
     const teacher = this.userService.getUserById(teacherId);
     const slot = this.userService.getAvailabilitySlotById(availabilitySlotId);
@@ -41,7 +41,8 @@ export class BookingRequestService {
       status: 'pending',
       requestedDate: slot.date,
       requestedStartHour: slot.startHour,
-      requestedEndHour: slot.endHour
+      requestedEndHour: slot.endHour,
+      studentNotes: studentNotes
     };
 
     this.bookingRequests.push(newRequest);
@@ -109,6 +110,23 @@ export class BookingRequestService {
 
     request.status = 'rejected';
     request.teacherNotes = teacherNotes;
+    return true;
+  }
+
+  cancelBookingRequestByStudent(requestId: string, studentId: string): boolean {
+    const requestIndex = this.bookingRequests.findIndex(req => req.id === requestId && req.studentId === studentId);
+    if (requestIndex === -1) {
+      console.error('Booking request not found or does not belong to the student.');
+      return false;
+    }
+
+    const request = this.bookingRequests[requestIndex];
+    if (request.status !== 'pending') {
+      console.error('Only pending booking requests can be cancelled by the student.');
+      return false;
+    }
+
+    this.bookingRequests.splice(requestIndex, 1);
     return true;
   }
 

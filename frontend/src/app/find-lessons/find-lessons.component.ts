@@ -31,7 +31,7 @@ export class FindLessonsComponent implements OnInit, OnDestroy {
   weekDayHeaders = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   isLoading: boolean = false;
   currentMonthDisplay: string = '';
-  private readonly numberOfWeeksToDisplay = 5;
+  private readonly numberOfWeeksToDisplay = 4;
   private userSubscription: Subscription | undefined;
 
   constructor(

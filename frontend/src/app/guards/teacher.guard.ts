@@ -17,7 +17,7 @@ export class TeacherGuard implements CanActivate {
     if (currentUser && currentUser.hasTeacherRights) {
       return true;
     } else {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/home']);
       return false;
     }
   }

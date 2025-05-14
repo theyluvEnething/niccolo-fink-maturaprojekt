@@ -3,6 +3,11 @@
 <mat-dialog-content class="mat-typography popup-content">
   <p *ngIf="displaySlots.length === 0" class="no-slots-message">No available slots for this day from your subscribed teachers.</p>
 
+  <mat-form-field appearance="outline" class="full-width-field student-notes-field" *ngIf="displaySlots.length > 0">
+    <mat-label>Notes for Teacher (Optional)</mat-label>
+    <textarea matInput [(ngModel)]="studentNotes" rows="2" placeholder="e.g., specific opening to practice, focus areas"></textarea>
+  </mat-form-field>
+
   <mat-list *ngIf="displaySlots.length > 0" class="scrollable-slot-list">
     <div *ngFor="let slot of displaySlots" class="slot-item-container">
       <mat-list-item class="slot-item">

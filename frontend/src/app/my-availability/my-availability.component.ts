@@ -31,7 +31,7 @@ export class MyAvailabilityComponent implements OnInit {
   currentMonthDisplay: string = '';
 
   private teacherAvailabilities: CalendarAvailability[] = [];
-  private readonly numberOfWeeksToDisplay = 5; // Display 5 weeks (35 days)
+  private readonly numberOfWeeksToDisplay = 4;
 
   constructor(
     private userService: UserService,

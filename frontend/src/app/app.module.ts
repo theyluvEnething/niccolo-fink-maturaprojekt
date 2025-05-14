@@ -10,7 +10,6 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SearchComponent } from './search/search.component';
-import { BookComponent } from './book/book.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -48,7 +47,6 @@ import { MatDividerModule } from '@angular/material/divider';
     HomeComponent,
     ProfileComponent,
     SearchComponent,
-    BookComponent,
     SidebarComponent,
     MyAvailabilityComponent,
     FindLessonsComponent,

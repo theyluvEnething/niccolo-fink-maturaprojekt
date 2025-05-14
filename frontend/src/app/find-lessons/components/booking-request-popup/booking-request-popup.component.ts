@@ -24,6 +24,7 @@ interface SlotViewModel extends CalendarAvailability {
 })
 export class BookingRequestPopupComponent implements OnInit {
   displaySlots: SlotViewModel[] = [];
+  studentNotes: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<BookingRequestPopupComponent>,
@@ -61,7 +62,8 @@ export class BookingRequestPopupComponent implements OnInit {
     const request = this.bookingRequestService.createBookingRequest(
       this.data.currentUser.id,
       slot.teacher.id,
-      slot.id
+      slot.id,
+      this.studentNotes
     );
 
     if (request) {

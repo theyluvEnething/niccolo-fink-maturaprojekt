@@ -119,9 +119,7 @@ export class UserService {
     if (userFound) {
       const { password, ...userToStore } = userFound;
       let userForSession = JSON.parse(JSON.stringify(userToStore)) as User;
-      if (!userForSession.profilePictureUrl) {
-        userForSession.profilePictureUrl = this.defaultProfilePic;
-      }
+      userForSession.profilePictureUrl = userForSession.profilePictureUrl || this.defaultProfilePic;
       this.currentUserSubject.next(userForSession);
       return userForSession;
     }
@@ -137,9 +135,7 @@ export class UserService {
     const user = this.currentUserSubject.getValue();
     if (!user) return null;
     const userToReturn = { ...user };
-     if (!userToReturn.profilePictureUrl) {
-      userToReturn.profilePictureUrl = this.defaultProfilePic;
-    }
+    userToReturn.profilePictureUrl = userToReturn.profilePictureUrl || this.defaultProfilePic;
     delete userToReturn.password;
     return JSON.parse(JSON.stringify(userToReturn));
   }
@@ -182,22 +178,17 @@ export class UserService {
 
     this.users[userIndex] = {
       ...this.users[userIndex],
-      ...profileData
+      ...profileData,
+      profilePictureUrl: profileData.profilePictureUrl || this.defaultProfilePic
     };
-     if (!this.users[userIndex].profilePictureUrl) {
-        this.users[userIndex].profilePictureUrl = this.defaultProfilePic;
-    }
-
 
     const currentLoggedInUser = this.currentUserSubject.getValue();
     if (currentLoggedInUser && currentLoggedInUser.id === userId) {
       const updatedLoggedInUser = {
         ...currentLoggedInUser,
-        ...profileData
+        ...profileData,
+        profilePictureUrl: profileData.profilePictureUrl || this.defaultProfilePic
       };
-      if (!updatedLoggedInUser.profilePictureUrl) {
-        updatedLoggedInUser.profilePictureUrl = this.defaultProfilePic;
-      }
       this.currentUserSubject.next(updatedLoggedInUser);
     }
     const { password, ...updatedUserToReturn } = this.users[userIndex];

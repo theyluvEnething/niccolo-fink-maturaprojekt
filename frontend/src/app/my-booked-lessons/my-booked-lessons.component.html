@@ -1,50 +1,60 @@
 <div class="page-content-container">
   <div class="page-header">
-    <h1>My Booked Lessons</h1>
-    <p>Here are your upcoming scheduled lessons.</p>
+    <h1>My Booked Lessons & Requests</h1>
+    <p>Here are your upcoming scheduled lessons and pending requests.</p>
   </div>
 
   <div *ngIf="isLoading" class="loading-spinner-container">
     <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
   </div>
 
-  <div *ngIf="!isLoading && bookedLessons.length === 0" class="no-data-message">
-    <p>You have no upcoming booked lessons.</p>
+  <div *ngIf="!isLoading && displayableItems.length === 0" class="no-data-message">
+    <p>You have no upcoming booked lessons or pending requests.</p>
     <button mat-flat-button color="primary" routerLink="/find-lessons">Find a Lesson</button>
   </div>
 
-  <div *ngIf="!isLoading && bookedLessons.length > 0" class="lessons-grid grid-container">
-    <mat-card *ngFor="let lesson of bookedLessons" class="lesson-card item-card">
+  <div *ngIf="!isLoading && displayableItems.length > 0" class="lessons-grid grid-container">
+    <mat-card *ngFor="let item of displayableItems" class="lesson-card item-card" [ngClass]="{'pending-request-card': item.type === 'pending'}">
       <mat-card-header>
-        <img mat-card-avatar [src]="lesson.teacher?.profilePictureUrl || defaultProfilePic" alt="{{ lesson.teacher?.fullName }} profile picture" class="item-avatar">
-        <mat-card-title class="item-title">{{ lesson.teacher?.fullName || 'N/A' }}</mat-card-title>
-        <mat-card-subtitle *ngIf="lesson.teacher?.chessTitle || lesson.teacher?.rating" class="item-subtitle">
-          <span *ngIf="lesson.teacher?.chessTitle">{{ lesson.teacher?.chessTitle }}</span>
-          <span *ngIf="lesson.teacher?.chessTitle && lesson.teacher?.rating" class="subtitle-separator"> &middot; </span>
-          <span *ngIf="lesson.teacher?.rating">Rating: {{ lesson.teacher?.rating }}</span>
+        <img mat-card-avatar [src]="item.teacher?.profilePictureUrl || defaultProfilePic" alt="{{ item.teacher?.fullName }} profile picture" class="item-avatar">
+        <mat-card-title class="item-title">{{ item.teacher?.fullName || 'N/A' }}</mat-card-title>
+        <mat-card-subtitle *ngIf="item.teacher?.chessTitle || item.teacher?.rating" class="item-subtitle">
+          <span *ngIf="item.teacher?.chessTitle">{{ item.teacher?.chessTitle }}</span>
+          <span *ngIf="item.teacher?.chessTitle && item.teacher?.rating" class="subtitle-separator"> &middot; </span>
+          <span *ngIf="item.teacher?.rating">Rating: {{ item.teacher?.rating }}</span>
         </mat-card-subtitle>
+        <span class="item-status-badge" [ngClass]="item.type">{{ item.statusText }}</span>
       </mat-card-header>
 
       <mat-card-content class="lesson-details item-card-content">
         <div class="detail-item">
           <mat-icon class="detail-icon">calendar_today</mat-icon>
-          <span>{{ lesson.lessonDate | date:'fullDate' }}</span>
+          <span>{{ item.lessonDate | date:'fullDate' }}</span>
         </div>
         <div class="detail-item">
           <mat-icon class="detail-icon">schedule</mat-icon>
-          <span>{{ lesson.startTime }} - {{ lesson.endTime }}</span>
+          <span>{{ item.startTime }} - {{ item.endTime }}</span>
         </div>
-        <div *ngIf="lesson.bookingRequest && lesson.bookingRequest.teacherNotes" class="detail-item notes-item">
+        <div *ngIf="item.bookingRequest?.teacherNotes && item.type === 'confirmed'" class="detail-item notes-item">
           <mat-icon class="detail-icon">notes</mat-icon>
           <div class="notes-content">
             <strong>Teacher's Notes:</strong>
-            <p class="notes-text">{{ lesson.bookingRequest.teacherNotes }}</p>
+            <p class="notes-text">{{ item.bookingRequest.teacherNotes }}</p>
+          </div>
+        </div>
+         <div *ngIf="item.bookingRequest?.studentNotes && item.type === 'pending'" class="detail-item notes-item">
+          <mat-icon class="detail-icon">speaker_notes</mat-icon>
+          <div class="notes-content">
+            <strong>Your Notes (for teacher):</strong>
+            <p class="notes-text">{{ item.bookingRequest.studentNotes }}</p>
           </div>
         </div>
       </mat-card-content>
       <mat-card-actions align="end">
-        <button mat-stroked-button color="warn" (click)="cancelLesson(lesson.session)">
-          <mat-icon>cancel</mat-icon> Cancel Lesson
+        <button mat-stroked-button color="warn" (click)="cancelItem(item)">
+          <mat-icon>cancel</mat-icon>
+          <span *ngIf="item.type === 'confirmed'">Cancel Lesson</span>
+          <span *ngIf="item.type === 'pending'">Cancel Request</span>
         </button>
       </mat-card-actions>
     </mat-card>
