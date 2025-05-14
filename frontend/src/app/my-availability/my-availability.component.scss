@@ -1,1 +1,163 @@
+.availability-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  min-height: calc(100vh - 64px); /* Adjust based on toolbar height */
+}
 
+.calendar-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.calendar-header h2 {
+  font-size: 2em;
+  color: #3f51b5; /* Primary color */
+  margin-bottom: 8px;
+}
+
+.calendar-header p {
+  font-size: 1em;
+  color: #555;
+}
+
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.day-card {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.day-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.day-card.past-day {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.day-card.past-day:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.day-card.today {
+  border: 2px solid #3f51b5; /* Primary color for today's border */
+}
+
+.day-card mat-card-header {
+  padding: 12px; /* Reduced padding */
+}
+
+.day-avatar {
+  background-color: #e8eaf6; /* Light indigo */
+  color: #3f51b5; /* Primary color */
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8em; /* Smaller font for abbreviation */
+  border-radius: 50%;
+  width: 36px; /* Slightly smaller avatar */
+  height: 36px;
+}
+
+.day-number {
+  font-size: 1.8em; /* Larger day number */
+  font-weight: bold;
+  color: #333;
+  line-height: 1;
+}
+
+.month-year {
+  font-size: 0.8em;
+  color: #757575;
+}
+
+.day-status {
+  padding: 0 12px 12px;
+  text-align: center;
+  min-height: 40px; /* Ensure consistent height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.slot-indicators {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 4px;
+  gap: 3px;
+  max-width: 100%;
+}
+
+.slot-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #4caf50; /* Green for available by default */
+  border: 1px solid #388e3c;
+}
+
+.slot-dot.booked {
+  background-color: #ffc107; /* Yellow for booked */
+  border-color: #ffa000;
+}
+
+.status-text {
+  font-size: 0.85em;
+  color: #555;
+  font-weight: 500;
+}
+
+/* Day Card Status Colors */
+.day-card.status-default {
+  background-color: white;
+}
+
+.day-card.status-green {
+  background-color: #e8f5e9; /* Light green */
+}
+.day-card.status-green .day-number { color: #2e7d32; }
+.day-card.status-green .status-text { color: #2e7d32; }
+
+.day-card.status-yellow {
+  background-color: #fffde7; /* Light yellow */
+}
+.day-card.status-yellow .day-number { color: #f57f17; }
+.day-card.status-yellow .status-text { color: #f57f17; }
+.day-card.status-yellow .slot-dot { background-color: #ffeb3b; border-color: #fbc02d; } /* Default for available in yellow */
+.day-card.status-yellow .slot-dot.booked { background-color: #f57f17; border-color: #ef6c00; } /* Darker for booked in yellow */
+
+
+.day-card.status-red {
+  background-color: #ffebee; /* Light red */
+}
+.day-card.status-red .day-number { color: #c62828; }
+.day-card.status-red .status-text { color: #c62828; }
+.day-card.status-red .slot-dot { background-color: #d32f2f; border-color: #b71c1c; } /* All dots are red and "booked" style */
+
+
+.no-user-message {
+  text-align: center;
+  padding: 20px;
+  font-size: 1.2em;
+  color: #757575;
+}

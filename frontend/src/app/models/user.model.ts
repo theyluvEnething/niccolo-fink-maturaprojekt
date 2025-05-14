@@ -1,9 +1,9 @@
 export interface CalendarAvailability {
   id: string;
   userId: string;
-  date: string;
-  hour: number;
-  sessionId?: string;
+  date: string; // YYYY-MM-DD format
+  hour: number; // 0-23, representing the start of the hour slot
+  sessionId?: string; // ID of the session if this slot is booked
 }
 
 export interface User {

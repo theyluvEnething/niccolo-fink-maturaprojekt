@@ -1,0 +1,18 @@
+.popup-content {
+  min-width: 350px;
+}
+
+.time-range-selector {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.time-range-selector mat-form-field {
+  flex: 1;
+}
+
+mat-dialog-actions {
+  padding-top: 16px;
+}

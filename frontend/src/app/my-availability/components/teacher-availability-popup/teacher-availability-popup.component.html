@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Add Availability for {{ getFormattedDate() }}</h2>
+<mat-dialog-content class="mat-typography popup-content">
+  <p>Select the time range you will be available.</p>
+  <div class="time-range-selector">
+    <mat-form-field appearance="fill">
+      <mat-label>Start Hour</mat-label>
+      <mat-select [(ngModel)]="startHour">
+        <mat-option *ngFor="let hour of hours" [value]="hour">
+          {{ hour < 10 ? '0' + hour : hour }}:00
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>End Hour</mat-label>
+      <mat-select [(ngModel)]="endHour">
+        <mat-option *ngFor="let hour of hours" [value]="hour + 1">
+          {{ hour + 1 < 10 ? '0' + (hour + 1) : (hour + 1) }}:00
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-stroked-button (click)="onCancel()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="onSave()" cdkFocusInitial>Save Availability</button>
+</mat-dialog-actions>
