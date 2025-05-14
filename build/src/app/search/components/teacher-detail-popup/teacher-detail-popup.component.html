@@ -1,0 +1,27 @@
+<h2 mat-dialog-title class="dialog-title">Teacher Details</h2>
+<mat-dialog-content class="dialog-content">
+  <div class="teacher-info-container">
+    <img [src]="teacher.profilePictureUrl || defaultProfilePic" alt="Profile Picture of {{ teacher.fullName }}" class="profile-picture-popup">
+    <h3 class="teacher-name">{{ teacher.fullName }}</h3>
+    <p *ngIf="teacher.chessTitle" class="detail-item">
+      <mat-icon class="detail-icon">military_tech</mat-icon> Title: {{ teacher.chessTitle }}
+    </p>
+    <p *ngIf="teacher.rating" class="detail-item">
+      <mat-icon class="detail-icon">trending_up</mat-icon> Rating: {{ teacher.rating }}
+    </p>
+    <p class="detail-item">
+      <mat-icon class="detail-icon">email</mat-icon> Email: {{ teacher.email }}
+    </p>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-stroked-button (click)="onClose()">Close</button>
+  <ng-container *ngIf="!isSelf">
+    <button *ngIf="!isSubscribed" mat-flat-button color="primary" (click)="subscribe()">
+      <mat-icon>person_add</mat-icon> Subscribe
+    </button>
+    <button *ngIf="isSubscribed" mat-flat-button color="accent" (click)="unsubscribe()">
+      <mat-icon>how_to_reg</mat-icon> Unsubscribe
+    </button>
+  </ng-container>
+</mat-dialog-actions>

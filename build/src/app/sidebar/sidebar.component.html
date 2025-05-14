@@ -1,0 +1,74 @@
+<div class="sidebar-container expanded">
+  <div class="sidebar-header">
+    <div class="logo-container expanded">
+      <mat-icon svgIcon="chess-king" class="logo-icon"></mat-icon>
+      <span class="logo-text">ChessConnect</span>
+    </div>
+  </div>
+
+  <mat-nav-list class="navigation-list">
+    <ng-container *ngFor="let item of commonNavItems">
+      <a mat-list-item
+         *ngIf="shouldShowItem(item)"
+         [routerLink]="item.route"
+         routerLinkActive="active-nav-item"
+         [routerLinkActiveOptions]="{exact: true}"
+         [title]="item.label">
+        <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+        <span matListItemTitle class="nav-item-label">{{item.label}}</span>
+      </a>
+    </ng-container>
+
+    <ng-container *ngFor="let item of studentNavItems">
+      <a mat-list-item
+         *ngIf="shouldShowItem(item)"
+         [routerLink]="item.route"
+         routerLinkActive="active-nav-item"
+         [routerLinkActiveOptions]="{exact: true}"
+         [title]="item.label">
+        <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+        <span matListItemTitle class="nav-item-label">{{item.label}}</span>
+      </a>
+    </ng-container>
+  </mat-nav-list>
+
+  <hr *ngIf="currentUser?.hasTeacherRights" class="sidebar-divider teacher-section-divider">
+
+  <mat-nav-list class="navigation-list teacher-specific-list" *ngIf="currentUser?.hasTeacherRights">
+     <ng-container *ngFor="let item of teacherNavItems">
+        <a mat-list-item
+           *ngIf="shouldShowItem(item)"
+           [routerLink]="item.route"
+           routerLinkActive="active-nav-item"
+           [routerLinkActiveOptions]="{exact: true}"
+           [title]="item.label">
+          <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+          <span matListItemTitle class="nav-item-label">{{item.label}}</span>
+        </a>
+      </ng-container>
+  </mat-nav-list>
+
+
+  <div class="sidebar-spacer"></div>
+
+  <div *ngIf="currentUser" class="user-profile-section">
+    <img [src]="currentUser.profilePictureUrl || defaultProfilePic" alt="Profile Picture" class="profile-picture-sidebar">
+    <div class="user-info-sidebar">
+      <span class="user-name-sidebar">{{ currentUser.fullName }}</span>
+      <span class="user-title-sidebar" *ngIf="currentUser.chessTitle">{{ currentUser.chessTitle }}</span>
+    </div>
+  </div>
+
+  <hr class="sidebar-divider">
+
+  <mat-nav-list class="bottom-nav-list">
+     <a mat-list-item routerLink="/profile" routerLinkActive="active-nav-item" [title]="'Profile'">
+      <mat-icon matListItemIcon>account_circle</mat-icon>
+      <span matListItemTitle class="nav-item-label">Profile</span>
+    </a>
+    <a mat-list-item (click)="logout()" [title]="'Logout'">
+      <mat-icon matListItemIcon class="logout-icon">logout</mat-icon>
+      <span matListItemTitle class="nav-item-label logout-label">Logout</span>
+    </a>
+  </mat-nav-list>
+</div>

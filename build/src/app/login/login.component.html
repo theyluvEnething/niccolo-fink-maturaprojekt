@@ -1,0 +1,19 @@
+<div class="page-content-container login-page-container">
+  <div class="login-card-container">
+    <mat-card class="login-card">
+      <mat-card-title class="login-title">Welcome to ChessConnect</mat-card-title>
+      <mat-card-subtitle class="login-subtitle">Please select your role to log in</mat-card-subtitle>
+      <mat-card-content class="login-actions">
+        <button mat-flat-button color="primary" (click)="logIn('student')">
+          <mat-icon>school</mat-icon> Log in as Student
+        </button>
+        <button mat-flat-button color="accent" (click)="logIn('teacher')">
+          <mat-icon>person</mat-icon> Log in as Teacher
+        </button>
+        <button mat-flat-button class="versatile-button" (click)="logIn('versatile')">
+          <mat-icon>star</mat-icon> Log in as Magnus
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

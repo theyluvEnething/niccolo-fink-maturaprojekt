@@ -1,0 +1,54 @@
+.search-bar-container {
+  margin: 0 auto 24px auto;
+  max-width: 700px;
+}
+
+.teacher-card.item-card { /* Generic naming for reusability */
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.teacher-card.item-card:hover {
+  box-shadow: 0 5px 15px rgba(0, 100, 0, 0.15); /* Subtle green shadow */
+  transform: translateY(-3px);
+}
+
+.item-avatar { /* Generic naming */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #A5D6A7; /* Light green border */
+}
+
+.item-title {
+  font-weight: 500;
+}
+
+.item-subtitle {
+  font-size: 0.9em;
+  color: #4CAF50; /* Standard Green */
+}
+
+.subtitle-separator {
+  margin: 0 4px;
+  color: #81C784; /* Lighter Green */
+}
+
+.item-card-content {
+  font-size: 0.85em;
+  color: #555;
+  padding-top: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.item-card-content mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+  color: #66BB6A; /* Mid Green */
+}

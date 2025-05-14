@@ -1,0 +1,93 @@
+.stats-cards-container {
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  flex: 1;
+  min-width: 220px; /* Ensure cards are not too squeezed */
+}
+
+.stat-card mat-card-header {
+  padding: 16px;
+}
+
+.stat-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+  color: #388E3C; /* Darker Green */
+  background-color: #E8F5E9; /* Light Green Background */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px !important;
+}
+
+.stat-value {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #2E7D32; /* Dark Green */
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 0.85em;
+  color: #555;
+  margin-top: 2px;
+}
+
+.stat-card mat-card-content {
+  padding: 0 16px 16px 16px;
+  font-size: 0.8em;
+  color: #777;
+}
+
+.actions-activity-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.quick-actions-card {
+  flex: 1;
+  min-width: 280px;
+}
+
+.recent-activity-card {
+  flex: 2;
+  min-width: 280px;
+}
+
+.quick-actions-card .content-list-item {
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, border-left-color 0.2s ease-in-out;
+  border-left: 3px solid transparent;
+  padding-left: 13px; /* Adjust for border */
+}
+
+.quick-actions-card .content-list-item:hover {
+  background-color: #C8E6C9; /* More noticeable light green hover */
+  border-left-color: #4CAF50; /* Standard green accent on hover */
+}
+
+.quick-actions-card .content-list-item mat-icon {
+  color: #4CAF50; /* Standard Green */
+}
+
+.activity-subtitle {
+  font-size: 0.9em;
+  color: #777;
+  margin-bottom: 12px;
+}
+
+.recent-activity-card .content-list-item mat-icon {
+  margin-right: 12px;
+}
+
+.success-icon { color: #4CAF50; /* Green */ }
+.warning-icon { color: #FFC107; /* Amber */ }
+.info-icon { color: #81C784; /* Lighter Green */ }

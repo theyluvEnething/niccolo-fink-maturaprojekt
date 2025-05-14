@@ -1,0 +1,62 @@
+<div class="page-content-container">
+  <div class="page-header">
+    <h1>My Availability</h1>
+    <p>Manage your weekly teaching slots for {{ currentMonthDisplay }}.</p>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-spinner-container">
+    <mat-progress-spinner diameter="50"></mat-progress-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && currentUser" class="calendar-table-container">
+     <p class="calendar-info">Click on a day to add or modify your available time slots.</p>
+    <table class="calendar-table">
+      <thead>
+        <tr>
+          <th *ngFor="let header of weekDayHeaders">{{ header }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let week of calendarWeeks">
+          <td *ngFor="let day of week"
+              [class.today]="day.isToday"
+              [class.past-day]="day.isPast"
+              [class.status-default]="!day.isCurrentMonth"
+              [class.current-date-outline]="day.isToday"
+              [class.status-default]="day.statusColor === 'default' && !day.isPast && day.isCurrentMonth"
+              [class.status-green]="day.statusColor === 'green' && !day.isPast && day.isCurrentMonth"
+              [class.status-yellow]="day.statusColor === 'yellow' && !day.isPast && day.isCurrentMonth"
+              [class.status-red]="day.statusColor === 'red' && !day.isPast && day.isCurrentMonth"
+              (click)="openAvailabilityPopup(day)"
+              [title]="day.isPast ? 'Cannot set availability for past dates' : 'Click to manage slots'">
+            <div class="day-cell-content">
+              <span class="day-number">{{ day.dayOfMonth }}</span>
+              <div class="slot-info-container" *ngIf="day.isCurrentMonth && !day.isPast">
+                <div *ngIf="day.totalSlots > 0" class="slot-indicators">
+                    <span *ngFor="let i of [].constructor(day.totalSlots); let idx = index"
+                          class="slot-dot"
+                          [class.booked]="idx < day.bookedSlots">
+                    </span>
+                </div>
+                <span class="status-text">{{ day.statusText }}</span>
+              </div>
+              <div class="slot-info-container" *ngIf="!day.isCurrentMonth && !day.isPast">
+                 <div *ngIf="day.totalSlots > 0" class="slot-indicators">
+                    <span *ngFor="let i of [].constructor(day.totalSlots); let idx = index"
+                          class="slot-dot"
+                          [class.booked]="idx < day.bookedSlots">
+                    </span>
+                </div>
+                <span class="status-text">{{ day.statusText }}</span>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!currentUser && !isLoading" class="no-data-message">
+    <p>Please log in as a teacher to manage availability.</p>
+  </div>
+</div>

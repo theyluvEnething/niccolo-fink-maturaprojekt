@@ -1,0 +1,56 @@
+.student-card.item-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: box-shadow 0.2s ease-in-out;
+  background-color: #fff;
+}
+
+.student-card.item-card:hover {
+  box-shadow: 0 4px 10px rgba(0, 100, 0, 0.1); /* Subtle green shadow on hover */
+}
+
+.item-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #A5D6A7; /* Light green border */
+}
+
+.mat-mdc-card-header-text { /* Standard Material adjustment for avatar */
+  margin-left: 12px !important;
+}
+
+.item-title {
+  font-weight: 500;
+}
+
+.item-subtitle {
+  font-size: 0.9em;
+  color: #4CAF50; /* Standard Green */
+}
+
+.subtitle-separator {
+  margin: 0 4px;
+  color: #81C784; /* Lighter Green */
+}
+
+.student-card-content.item-card-content {
+  font-size: 0.9em;
+  color: #444; /* Slightly darker than default #555 */
+  padding-top: 8px;
+}
+
+.student-card-content.item-card-content p {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.content-icon {
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+  margin-right: 8px;
+  color: #388E3C; /* Darker Green */
+}
