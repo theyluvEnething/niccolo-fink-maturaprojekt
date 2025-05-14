@@ -35,14 +35,14 @@
           <mat-icon class="detail-icon">schedule</mat-icon>
           <span>{{ item.startTime }} - {{ item.endTime }}</span>
         </div>
-        <div *ngIf="item.bookingRequest?.teacherNotes && item.type === 'confirmed'" class="detail-item notes-item">
+        <div *ngIf="item.bookingRequest && item.bookingRequest.teacherNotes && item.type === 'confirmed'" class="detail-item notes-item">
           <mat-icon class="detail-icon">notes</mat-icon>
           <div class="notes-content">
             <strong>Teacher's Notes:</strong>
             <p class="notes-text">{{ item.bookingRequest.teacherNotes }}</p>
           </div>
         </div>
-         <div *ngIf="item.bookingRequest?.studentNotes && item.type === 'pending'" class="detail-item notes-item">
+         <div *ngIf="item.bookingRequest && item.bookingRequest.studentNotes && item.type === 'pending'" class="detail-item notes-item">
           <mat-icon class="detail-icon">speaker_notes</mat-icon>
           <div class="notes-content">
             <strong>Your Notes (for teacher):</strong>
