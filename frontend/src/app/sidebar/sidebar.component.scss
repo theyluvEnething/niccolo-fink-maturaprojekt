@@ -128,6 +128,17 @@
   flex-grow: 1; /* Pushes items below it to the bottom */
 }
 
+.teacher-section-divider {
+  border: none;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 8px 16px; /* Adjusted margin */
+}
+
+.teacher-specific-list {
+  margin-top: 0px; /* Remove top margin if divider is present */
+}
+
 .user-profile-section {
   display: flex;
   align-items: center;

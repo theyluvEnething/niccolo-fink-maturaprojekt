@@ -1,0 +1,51 @@
+<div class="my-lessons-container">
+  <mat-toolbar color="primary">
+    <span>My Booked Lessons</span>
+  </mat-toolbar>
+
+  <div *ngIf="isLoading" class="loading-spinner-container">
+    <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && bookedLessons.length === 0" class="no-lessons-message">
+    <p>You have no upcoming booked lessons.</p>
+    <button mat-flat-button color="primary" routerLink="/find-lessons">Find a Lesson</button>
+  </div>
+
+  <div *ngIf="!isLoading && bookedLessons.length > 0" class="lessons-grid">
+    <mat-card *ngFor="let lesson of bookedLessons" class="lesson-card">
+      <mat-card-header>
+        <img mat-card-avatar [src]="lesson.teacher?.profilePictureUrl || defaultProfilePic" alt="{{ lesson.teacher?.fullName }} profile picture" class="teacher-avatar">
+        <mat-card-title>{{ lesson.teacher?.fullName || 'N/A' }}</mat-card-title>
+        <mat-card-subtitle *ngIf="lesson.teacher?.chessTitle || lesson.teacher?.rating" class="teacher-subtitle">
+          <span *ngIf="lesson.teacher?.chessTitle">{{ lesson.teacher?.chessTitle }}</span>
+          <span *ngIf="lesson.teacher?.chessTitle && lesson.teacher?.rating" class="subtitle-separator"> &middot; </span>
+          <span *ngIf="lesson.teacher?.rating">Rating: {{ lesson.teacher?.rating }}</span>
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content class="lesson-details">
+        <div class="detail-item">
+          <mat-icon class="detail-icon">calendar_today</mat-icon>
+          <span>{{ lesson.lessonDate | date:'fullDate' }}</span>
+        </div>
+        <div class="detail-item">
+          <mat-icon class="detail-icon">schedule</mat-icon>
+          <span>{{ lesson.startTime }} - {{ lesson.endTime }}</span>
+        </div>
+        <div *ngIf="lesson.bookingRequest && lesson.bookingRequest.teacherNotes" class="detail-item notes-item">
+          <mat-icon class="detail-icon">notes</mat-icon>
+          <div class="notes-content">
+            <strong>Teacher's Notes:</strong>
+            <p class="notes-text">{{ lesson.bookingRequest.teacherNotes }}</p>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-stroked-button color="warn" (click)="cancelLesson(lesson.session)">
+          <mat-icon>cancel</mat-icon> Cancel Lesson
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

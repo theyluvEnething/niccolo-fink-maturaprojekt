@@ -9,8 +9,7 @@ interface NavItem {
   label: string;
   icon: string;
   route: string;
-  teacherOnly?: boolean;
-  studentOnly?: boolean;
+  type: 'all' | 'teacher' | 'student';
 }
 
 @Component({
@@ -35,16 +34,22 @@ export class SidebarComponent implements OnInit, OnDestroy {
   defaultProfilePic = 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
   private userSubscription: Subscription | undefined;
 
-
-  navItems: NavItem[] = [
-    { label: 'Home', icon: 'home', route: '/home' },
-    { label: 'My Calendar', icon: 'event_available', route: '/calendar', teacherOnly: true },
-    { label: 'My Lessons', icon: 'history_edu', route: '/lessons', studentOnly: true },
-    { label: 'Pending Bookings', icon: 'pending_actions', route: '/pending-bookings', teacherOnly: true },
-    { label: 'Manage Bookings', icon: 'rule_folder', route: '/manage-bookings', teacherOnly: true },
-    { label: 'My Students', icon: 'group', route: '/students', teacherOnly: true },
-    { label: 'Search Teachers', icon: 'search', route: '/search', studentOnly: true }
+  commonNavItems: NavItem[] = [
+    { label: 'Home', icon: 'home', route: '/home', type: 'all' },
+    { label: 'Find Lessons', icon: 'event_seat', route: '/find-lessons', type: 'all' },
+    { label: 'Search Teachers', icon: 'search', route: '/search', type: 'all' },
   ];
+
+  studentNavItems: NavItem[] = [
+    { label: 'My Booked Lessons', icon: 'event_note', route: '/my-booked-lessons', type: 'student' },
+  ];
+
+  teacherNavItems: NavItem[] = [
+    { label: 'My Calendar', icon: 'event_available', route: '/calendar', type: 'teacher' },
+    { label: 'Manage Bookings', icon: 'rule_folder', route: '/manage-bookings', type: 'teacher' },
+    { label: 'My Students', icon: 'group', route: '/students', type: 'teacher' },
+  ];
+
 
   constructor(private router: Router, private userService: UserService) {}
 
@@ -71,12 +76,13 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   shouldShowItem(item: NavItem): boolean {
     if (!this.currentUser) return false;
-    if (item.teacherOnly) {
+
+    if (item.type === 'teacher') {
       return this.currentUser.hasTeacherRights;
     }
-    if (item.studentOnly) {
+    if (item.type === 'student') {
       return !this.currentUser.hasTeacherRights;
     }
-    return true;
+    return true; // type 'all'
   }
 }

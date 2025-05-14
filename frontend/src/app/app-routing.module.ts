@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { MyAvailabilityComponent } from './my-availability/my-availability.component';
-import { LessonBookingsComponent } from './lesson-bookings/lesson-bookings.component';
+import { FindLessonsComponent } from './find-lessons/find-lessons.component';
+import { MyBookedLessonsComponent } from './my-booked-lessons/my-booked-lessons.component';
 import { MyStudentsComponent } from './my-students/my-students.component';
 import { SearchComponent } from './search/search.component';
 import { TeacherGuard } from './guards/teacher.guard';
 import { ProfileComponent } from './profile/profile.component';
-import { PendingBookingsComponent } from './pending-bookings/pending-bookings.component';
 import { ManageBookingsComponent } from './manage-bookings/manage-bookings.component';
 
 const routes: Routes = [
@@ -20,7 +20,8 @@ const routes: Routes = [
     component: MyAvailabilityComponent,
     canActivate: [TeacherGuard]
   },
-  { path: 'lessons', component: LessonBookingsComponent },
+  { path: 'find-lessons', component: FindLessonsComponent },
+  { path: 'my-booked-lessons', component: MyBookedLessonsComponent },
   {
     path: 'students',
     component: MyStudentsComponent,
@@ -28,11 +29,6 @@ const routes: Routes = [
   },
   { path: 'search', component: SearchComponent },
   { path: 'profile', component: ProfileComponent },
-  {
-    path: 'pending-bookings',
-    component: PendingBookingsComponent,
-    canActivate: [TeacherGuard]
-  },
   {
     path: 'manage-bookings',
     component: ManageBookingsComponent,

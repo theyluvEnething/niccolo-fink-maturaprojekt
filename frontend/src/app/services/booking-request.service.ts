@@ -17,7 +17,7 @@ export class BookingRequestService {
     private sessionService: SessionService
   ) {}
 
-  createBookingRequest(studentId: string, teacherId: string, availabilitySlotId: string, studentNotes?: string): BookingRequest | null {
+  createBookingRequest(studentId: string, teacherId: string, availabilitySlotId: string): BookingRequest | null {
     const student = this.userService.getUserById(studentId);
     const teacher = this.userService.getUserById(teacherId);
     const slot = this.userService.getAvailabilitySlotById(availabilitySlotId);
@@ -41,8 +41,7 @@ export class BookingRequestService {
       status: 'pending',
       requestedDate: slot.date,
       requestedStartHour: slot.startHour,
-      requestedEndHour: slot.endHour,
-      studentNotes
+      requestedEndHour: slot.endHour
     };
 
     this.bookingRequests.push(newRequest);
@@ -86,7 +85,7 @@ export class BookingRequestService {
         return null;
     }
 
-    const session = this.sessionService.bookSession(request.studentId, request.teacherId, request.availabilitySlotId);
+    const session = this.sessionService.bookSession(request.studentId, request.teacherId, request.availabilitySlotId, request.id);
     if (session) {
       request.status = 'accepted';
       request.teacherNotes = teacherNotes;

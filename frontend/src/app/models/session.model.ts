@@ -4,5 +4,5 @@ export interface Session {
   teacherId: string;
   availabilitySlotId: string; // Links to the CalendarAvailability.id
   status: 'scheduled' | 'cancelled';
-  // date and hour can be derived from the linked CalendarAvailability slot
+  bookingRequestId?: string; // ID of the BookingRequest that led to this session
 }

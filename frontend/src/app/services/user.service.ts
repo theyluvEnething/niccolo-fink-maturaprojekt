@@ -70,7 +70,7 @@ export class UserService {
       email: 'student@email.com',
       password: '1234',
       hasTeacherRights: false,
-      subscribedTeacherIds: [teacherId1],
+      subscribedTeacherIds: [teacherId1, userWithBothRightsId],
       profilePictureUrl: this.defaultProfilePic,
       chessTitle: 'Novice',
       rating: 1200
@@ -85,6 +85,7 @@ export class UserService {
       hasTeacherRights: true,
       availability: initialAvailabilitiesTeacher1,
       teachingStudentIds: [studentId1],
+      subscribedTeacherIds: [userWithBothRightsId],
       profilePictureUrl: this.defaultProfilePic,
       chessTitle: 'CM',
       rating: 2200
@@ -98,7 +99,7 @@ export class UserService {
       password: '1234',
       hasTeacherRights: true,
       availability: initialAvailabilitiesBothRights,
-      subscribedTeacherIds: [],
+      subscribedTeacherIds: [teacherId1],
       teachingStudentIds: [],
       profilePictureUrl: 'https://images.chesscomfiles.com/uploads/v1/master_player/3b0ddf4e-bd82-11e8-9421-af517c2ebfed.138ccc14.250x250o.709428b50ec9.jpg',
       chessTitle: 'GM',
@@ -314,6 +315,63 @@ export class UserService {
         }
     }
     return undefined;
+  }
+
+  subscribeToTeacher(studentId: string, teacherIdToSubscribe: string): boolean {
+    if (studentId === teacherIdToSubscribe) {
+      console.error('User cannot subscribe to themselves.');
+      return false;
+    }
+
+    const studentUser = this.users.find(u => u.id === studentId);
+    if (!studentUser) {
+      console.error('Subscribing user not found.');
+      return false;
+    }
+
+    if (!studentUser.subscribedTeacherIds) {
+      studentUser.subscribedTeacherIds = [];
+    }
+
+    if (!studentUser.subscribedTeacherIds.includes(teacherIdToSubscribe)) {
+      studentUser.subscribedTeacherIds.push(teacherIdToSubscribe);
+
+      const currentLoggedInUser = this.currentUserSubject.getValue();
+      if (currentLoggedInUser && currentLoggedInUser.id === studentId) {
+        const updatedLoggedInUser = { ...currentLoggedInUser, subscribedTeacherIds: [...studentUser.subscribedTeacherIds] };
+        this.currentUserSubject.next(updatedLoggedInUser);
+      }
+      return true;
+    }
+    return true;
+  }
+
+  unsubscribeFromTeacher(studentId: string, teacherIdToUnsubscribe: string): boolean {
+    const studentUser = this.users.find(u => u.id === studentId);
+    if (!studentUser || !studentUser.subscribedTeacherIds) {
+      return false;
+    }
+
+    const index = studentUser.subscribedTeacherIds.indexOf(teacherIdToUnsubscribe);
+    if (index > -1) {
+      studentUser.subscribedTeacherIds.splice(index, 1);
+
+      const currentLoggedInUser = this.currentUserSubject.getValue();
+      if (currentLoggedInUser && currentLoggedInUser.id === studentId) {
+        const updatedLoggedInUser = { ...currentLoggedInUser, subscribedTeacherIds: [...studentUser.subscribedTeacherIds] };
+        this.currentUserSubject.next(updatedLoggedInUser);
+      }
+      return true;
+    }
+    return false;
+  }
+
+  isSubscribedToTeacher(studentId: string, teacherId: string): boolean {
+    const studentUser = this.users.find(u => u.id === studentId);
+    if (!studentUser || !studentUser.subscribedTeacherIds) {
+      return false;
+    }
+    return studentUser.subscribedTeacherIds.includes(teacherId);
   }
 
   private formatDecimalHour(value: number): string {

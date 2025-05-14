@@ -12,7 +12,19 @@
   </div>
 
   <mat-nav-list class="navigation-list">
-    <ng-container *ngFor="let item of navItems">
+    <ng-container *ngFor="let item of commonNavItems">
+      <a mat-list-item
+         *ngIf="shouldShowItem(item)"
+         [routerLink]="item.route"
+         routerLinkActive="active-nav-item"
+         [routerLinkActiveOptions]="{exact: true}"
+         [title]="item.label">
+        <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+        <span *ngIf="isExpanded" matListItemTitle class="nav-item-label">{{item.label}}</span>
+      </a>
+    </ng-container>
+
+    <ng-container *ngFor="let item of studentNavItems">
       <a mat-list-item
          *ngIf="shouldShowItem(item)"
          [routerLink]="item.route"
@@ -24,6 +36,23 @@
       </a>
     </ng-container>
   </mat-nav-list>
+
+  <hr *ngIf="isExpanded && currentUser?.hasTeacherRights" class="sidebar-divider teacher-section-divider">
+
+  <mat-nav-list class="navigation-list teacher-specific-list" *ngIf="currentUser?.hasTeacherRights">
+     <ng-container *ngFor="let item of teacherNavItems">
+        <a mat-list-item
+           *ngIf="shouldShowItem(item)"
+           [routerLink]="item.route"
+           routerLinkActive="active-nav-item"
+           [routerLinkActiveOptions]="{exact: true}"
+           [title]="item.label">
+          <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+          <span *ngIf="isExpanded" matListItemTitle class="nav-item-label">{{item.label}}</span>
+        </a>
+      </ng-container>
+  </mat-nav-list>
+
 
   <div class="sidebar-spacer"></div>
 

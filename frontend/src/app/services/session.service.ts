@@ -12,7 +12,7 @@ export class SessionService {
 
   constructor(private userService: UserService) { }
 
-  bookSession(studentId: string, teacherId: string, availabilitySlotId: string): Session | null {
+  bookSession(studentId: string, teacherId: string, availabilitySlotId: string, bookingRequestId?: string): Session | null {
     const slotToBook = this.userService.getAvailabilitySlotById(availabilitySlotId);
 
     if (!slotToBook || slotToBook.userId !== teacherId || slotToBook.sessionId) {
@@ -25,12 +25,13 @@ export class SessionService {
       studentId,
       teacherId,
       availabilitySlotId: slotToBook.id,
-      status: 'scheduled'
+      status: 'scheduled',
+      bookingRequestId: bookingRequestId
     };
 
     this.sessions.push(newSession);
     this.userService.updateAvailabilitySlotBooking(teacherId, slotToBook.id, newSession.id);
-    return newSession;
+    return JSON.parse(JSON.stringify(newSession));
   }
 
   cancelSession(sessionId: string): boolean {
@@ -41,22 +42,25 @@ export class SessionService {
     sessionToCancel.status = 'cancelled';
 
     this.userService.updateAvailabilitySlotBooking(sessionToCancel.teacherId, sessionToCancel.availabilitySlotId, undefined);
+    // Also update the session in our local array
+    this.sessions[sessionIndex] = sessionToCancel;
     return true;
   }
 
   getSessionsForTeacher(teacherId: string): Session[] {
-    return this.sessions.filter(s => s.teacherId === teacherId && s.status === 'scheduled');
+    return JSON.parse(JSON.stringify(this.sessions.filter(s => s.teacherId === teacherId && s.status === 'scheduled')));
   }
 
   getSessionsForStudent(studentId: string): Session[] {
-    return this.sessions.filter(s => s.studentId === studentId && s.status === 'scheduled');
+    return JSON.parse(JSON.stringify(this.sessions.filter(s => s.studentId === studentId && s.status === 'scheduled')));
   }
 
   getSessionsBySlotIds(slotIds: string[]): Session[] {
-    return this.sessions.filter(s => slotIds.includes(s.availabilitySlotId) && s.status === 'scheduled');
+    return JSON.parse(JSON.stringify(this.sessions.filter(s => slotIds.includes(s.availabilitySlotId) && s.status === 'scheduled')));
   }
 
   getSessionById(sessionId: string): Session | undefined {
-    return this.sessions.find(s => s.id === sessionId);
+    const session = this.sessions.find(s => s.id === sessionId);
+    return session ? JSON.parse(JSON.stringify(session)) : undefined;
   }
 }

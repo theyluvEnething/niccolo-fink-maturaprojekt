@@ -1,1 +1,43 @@
-<p>search works!</p>
+<div class="search-container">
+  <mat-toolbar color="primary">
+    <span>Search Teachers</span>
+  </mat-toolbar>
+
+  <div class="search-bar-container">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Search by name, title, or rating</mat-label>
+      <input matInput [(ngModel)]="searchTerm" (ngModelChange)="onSearchTermChange()" placeholder="e.g., John Doe, GM, 2500">
+      <button mat-icon-button matSuffix *ngIf="searchTerm" (click)="clearSearch()" aria-label="Clear search">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-spinner-container">
+    <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && filteredTeachers.length === 0 && searchTerm" class="no-results-message">
+    No teachers found matching "{{ searchTerm }}".
+  </div>
+  <div *ngIf="!isLoading && allTeachers.length === 0 && !searchTerm" class="no-results-message">
+    No teachers available in the system yet.
+  </div>
+
+  <div class="teachers-grid" *ngIf="!isLoading && filteredTeachers.length > 0">
+    <mat-card *ngFor="let teacher of filteredTeachers" (click)="openTeacherDetailPopup(teacher)" class="teacher-card" tabindex="0" role="button" [attr.aria-label]="'View details for ' + teacher.fullName">
+      <mat-card-header>
+        <img mat-card-avatar [src]="teacher.profilePictureUrl || defaultProfilePic" alt="{{ teacher.fullName }} profile picture" class="teacher-avatar">
+        <mat-card-title>{{ teacher.fullName }}</mat-card-title>
+        <mat-card-subtitle *ngIf="teacher.chessTitle || teacher.rating" class="teacher-subtitle">
+          <span *ngIf="teacher.chessTitle">{{ teacher.chessTitle }}</span>
+          <span *ngIf="teacher.chessTitle && teacher.rating" class="subtitle-separator"> &middot; </span>
+          <span *ngIf="teacher.rating">Rating: {{ teacher.rating }}</span>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="teacher-card-content">
+        <p>Click to view details & subscribe.</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

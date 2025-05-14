@@ -15,12 +15,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MyAvailabilityComponent } from './my-availability/my-availability.component';
-import { LessonBookingsComponent } from './lesson-bookings/lesson-bookings.component';
+import { FindLessonsComponent } from './find-lessons/find-lessons.component';
+import { MyBookedLessonsComponent } from './my-booked-lessons/my-booked-lessons.component';
 import { MyStudentsComponent } from './my-students/my-students.component';
 import { TeacherAvailabilityPopupComponent } from './my-availability/components/teacher-availability-popup/teacher-availability-popup.component';
-import { BookingRequestPopupComponent } from './lesson-bookings/components/booking-request-popup/booking-request-popup.component';
-import { PendingBookingsComponent } from './pending-bookings/pending-bookings.component';
+import { BookingRequestPopupComponent } from './find-lessons/components/booking-request-popup/booking-request-popup.component';
 import { ManageBookingsComponent } from './manage-bookings/manage-bookings.component';
+import { TeacherDetailPopupComponent } from './search/components/teacher-detail-popup/teacher-detail-popup.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -50,12 +51,13 @@ import { MatDividerModule } from '@angular/material/divider';
     BookComponent,
     SidebarComponent,
     MyAvailabilityComponent,
-    LessonBookingsComponent,
+    FindLessonsComponent,
+    MyBookedLessonsComponent,
     MyStudentsComponent,
     TeacherAvailabilityPopupComponent,
     BookingRequestPopupComponent,
-    PendingBookingsComponent,
-    ManageBookingsComponent
+    ManageBookingsComponent,
+    TeacherDetailPopupComponent
   ],
   imports: [
     BrowserModule,
