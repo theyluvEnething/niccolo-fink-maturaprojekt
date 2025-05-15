@@ -1,16 +1,11 @@
-.search-bar-container {
-  margin: 0 auto 24px auto;
-  max-width: 700px;
-}
-
-.teacher-card.item-card {
+.user-card.item-card {
   cursor: pointer;
   transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
   border-radius: 8px;
   background-color: #fff;
 }
 
-.teacher-card.item-card:hover {
+.user-card.item-card:hover {
   box-shadow: 0 5px 15px rgba(81, 45, 168, 0.15);
   transform: translateY(-3px);
 }
@@ -32,23 +27,22 @@
   color: #673ab7;
 }
 
-.subtitle-separator {
-  margin: 0 4px;
-  color: #9575cd;
-}
-
 .item-card-content {
   font-size: 0.85em;
   color: #555;
   padding-top: 8px;
+}
+
+.item-card-content p {
   display: flex;
   align-items: center;
+  margin-bottom: 4px;
 }
 
 .item-card-content mat-icon {
   font-size: 18px;
   width: 18px;
   height: 18px;
-  margin-right: 6px;
+  margin-right: 8px;
   color: #7e57c2;
 }

@@ -1,3 +1,6 @@
+@use '@angular/material' as mat;
+@import '../../styles.scss';
+
 .stats-cards-container {
   margin-bottom: 24px;
 }
@@ -7,7 +10,7 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   flex: 1;
-  min-width: 220px; /* Ensure cards are not too squeezed */
+  min-width: 220px;
 }
 
 .stat-card mat-card-header {
@@ -18,8 +21,8 @@
   font-size: 32px;
   width: 32px;
   height: 32px;
-  color: #388E3C; /* Darker Green */
-  background-color: #E8F5E9; /* Light Green Background */
+  color: #512da8;
+  background-color: #ede7f6;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -30,7 +33,7 @@
 .stat-value {
   font-size: 1.8em;
   font-weight: bold;
-  color: #2E7D32; /* Dark Green */
+  color: #311b92;
   line-height: 1.1;
 }
 
@@ -66,16 +69,16 @@
   cursor: pointer;
   transition: background-color 0.2s ease-in-out, border-left-color 0.2s ease-in-out;
   border-left: 3px solid transparent;
-  padding-left: 13px; /* Adjust for border */
+  padding-left: 13px;
 }
 
 .quick-actions-card .content-list-item:hover {
-  background-color: #C8E6C9; /* More noticeable light green hover */
-  border-left-color: #4CAF50; /* Standard green accent on hover */
+  background-color: #d1c4e9;
+  border-left-color: #673ab7;
 }
 
 .quick-actions-card .content-list-item mat-icon {
-  color: #4CAF50; /* Standard Green */
+  color: #673ab7;
 }
 
 .activity-subtitle {
@@ -88,6 +91,6 @@
   margin-right: 12px;
 }
 
-.success-icon { color: #4CAF50; /* Green */ }
-.warning-icon { color: #FFC107; /* Amber */ }
-.info-icon { color: #81C784; /* Lighter Green */ }
+.success-icon { color: mat.get-color-from-palette($chessconnect-primary, 500); }
+.warning-icon { color: #FFC107; }
+.info-icon { color: mat.get-color-from-palette($chessconnect-accent, 200); }

@@ -1,15 +1,15 @@
 .app-container {
   height: 100vh;
   width: 100vw;
-  background-color: #e8f5e9;
+  background-color: #ede7f6;
 }
 
 .app-sidebar-element {
-  width: 260px; /* Fixed expanded width */
-  background-color: transparent; /* Sidebar component handles its own background */
+  width: 260px;
+  background-color: transparent;
   border-right: none !important;
   box-shadow: none !important;
-  overflow-x: hidden; /* Prevent horizontal scroll from sidebar content */
+  overflow-x: hidden;
 }
 
 .app-main-content {

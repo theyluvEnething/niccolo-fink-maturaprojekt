@@ -3,11 +3,11 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   background-color: #fff;
   position: relative;
-  border-left: 5px solid #4CAF50; /* Green for confirmed */
+  border-left: 5px solid #673ab7;
 }
 
 .pending-request-card {
-  border-left-color: #FFB300; /* Amber for pending */
+  border-left-color: #FFB300;
 }
 
 .item-avatar {
@@ -15,14 +15,14 @@
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid #A5D6A7; /* Light green border */
+  border: 1px solid #b39ddb;
 }
 
 .mat-mdc-card-header {
   position: relative;
 }
 
-.mat-mdc-card-header-text { /* Standard Material adjustment for avatar */
+.mat-mdc-card-header-text {
   margin-left: 12px !important;
 }
 
@@ -32,12 +32,12 @@
 
 .item-subtitle {
   font-size: 0.9em;
-  color: #4CAF50; /* Standard Green */
+  color: #673ab7;
 }
 
 .subtitle-separator {
   margin: 0 4px;
-  color: #81C784; /* Lighter Green */
+  color: #9575cd;
 }
 
 .item-status-badge {
@@ -53,12 +53,12 @@
 }
 
 .item-status-badge.confirmed {
-  background-color: #4CAF50; /* Green */
+  background-color: #673ab7;
 }
 
 .item-status-badge.pending {
-  background-color: #FFB300; /* Amber */
-  color: #3E2723; /* Darker text for better contrast on amber */
+  background-color: #FFB300;
+  color: #3E2723;
 }
 
 
@@ -76,7 +76,7 @@
 
 .detail-icon {
   margin-right: 10px;
-  color: #388E3C; /* Darker green for detail icons */
+  color: #512da8;
 }
 
 .notes-item {
@@ -92,13 +92,13 @@
   margin-top: 4px;
   font-size: 0.9em;
   color: #444;
-  background-color: #E8F5E9; /* Light green background for notes */
+  background-color: #ede7f6;
   padding: 8px 10px;
   border-radius: 4px;
   white-space: pre-wrap;
-  border: 1px solid #C8E6C9; /* Light green border */
+  border: 1px solid #d1c4e9;
 }
 
 .mat-mdc-card-actions {
-  padding: 8px 16px 16px 16px !important; /* Standard Material padding */
+  padding: 8px 16px 16px 16px !important;
 }

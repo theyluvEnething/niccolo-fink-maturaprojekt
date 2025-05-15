@@ -1,0 +1,67 @@
+.dialog-title {
+  color: #311b92;
+  border-bottom: 1px solid #d1c4e9;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.dialog-content {
+  min-width: 450px;
+  max-width: 600px;
+  max-height: 70vh;
+  font-size: 0.95em;
+}
+
+.user-details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detail-row {
+  display: flex;
+  padding: 6px 0;
+  border-bottom: 1px dashed #ede7f6;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-weight: 500;
+  color: #4527a0;
+  min-width: 180px;
+  flex-shrink: 0;
+}
+
+.detail-value {
+  color: #333;
+  word-break: break-all;
+}
+
+.password-value {
+  font-family: monospace;
+  background-color: #f5f3f7;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.image-url-value {
+  font-size: 0.85em;
+  color: #555;
+}
+
+.array-detail .detail-value,
+.availability-detail .detail-value {
+  max-height: 100px;
+  overflow-y: auto;
+  font-size: 0.9em;
+  background-color: #f9f8fb;
+  padding: 4px 6px;
+  border-radius: 3px;
+}
+
+.dialog-actions {
+  padding-top: 20px;
+}

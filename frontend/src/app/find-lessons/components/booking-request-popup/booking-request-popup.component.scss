@@ -8,7 +8,7 @@
 }
 
 .scrollable-slot-list {
-  max-height: calc(70vh - 120px - 70px); /* Adjusted for notes field */
+  max-height: calc(70vh - 120px - 70px);
   overflow-y: auto;
   padding-right: 8px;
 }
@@ -21,12 +21,12 @@
 
 .slot-item-container {
   margin-bottom: 8px;
-  border: 1px solid #C8E6C9; /* Light green border */
+  border: 1px solid #d1c4e9;
   border-radius: 6px;
   transition: background-color 0.2s;
 }
 .slot-item-container:hover {
-  background-color: #f0f4f0; /* Very light green on hover */
+  background-color: #f5f3f7;
 }
 
 .slot-item {
@@ -34,14 +34,14 @@
 }
 
 .slot-icon {
-  color: #388E3C; /* Darker Green */
+  color: #512da8;
   margin-right: 16px;
 }
 
 .slot-time {
   font-weight: 500;
   font-size: 1.1em;
-  color: #1B5E20; /* Even Darker Green for emphasis */
+  color: #311b92;
 }
 
 .teacher-info {
@@ -60,6 +60,6 @@
 
 mat-dialog-actions {
   padding-top: 16px;
-  border-top: 1px solid #C8E6C9; /* Light green separator */
+  border-top: 1px solid #d1c4e9;
   margin-top: 16px;
 }

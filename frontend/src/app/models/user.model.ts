@@ -15,6 +15,7 @@ export interface User {
   email: string;
   password?: string;
   hasTeacherRights: boolean;
+  isAdmin?: boolean;
   availability?: CalendarAvailability[];
   subscribedTeacherIds?: string[];
   teachingStudentIds?: string[];

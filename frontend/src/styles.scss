@@ -2,8 +2,8 @@
 
 @include mat.core();
 
-$chessconnect-primary: mat.define-palette(mat.$green-palette, 700, 500, 800);
-$chessconnect-accent: mat.define-palette(mat.$light-green-palette, A700, A400, A700);
+$chessconnect-primary: mat.define-palette(mat.$deep-purple-palette, 700, 500, 900);
+$chessconnect-accent: mat.define-palette(mat.$purple-palette, A200, A100, A400);
 $chessconnect-warn: mat.define-palette(mat.$red-palette);
 
 $chessconnect-theme: mat.define-light-theme((
@@ -25,7 +25,7 @@ html, body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: #e8f5e9; /* Very light green global background */
+  background-color: #ede7f6;
 }
 
 .page-content-container {
@@ -34,19 +34,19 @@ body {
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-  min-height: calc(100vh - 40px - 64px - 48px); /* Viewport - (margins + app-toolbar + typical page-header) */
+  min-height: calc(100vh - 40px - 64px - 48px);
 }
 
 .page-header {
   margin-bottom: 24px;
   padding-bottom: 16px;
-  border-bottom: 1px solid #dcedc8; /* Light green separator */
+  border-bottom: 1px solid #d1c4e9;
 }
 
 .page-header h1 {
   font-size: 2em;
   font-weight: 500;
-  color: mat.get-color-from-palette($chessconnect-primary, 700); /* Dark green */
+  color: mat.get-color-from-palette($chessconnect-primary, 700);
   margin: 0 0 4px 0;
 }
 
@@ -56,12 +56,10 @@ body {
   margin: 0;
 }
 
-/* Utility class for full width form fields */
 .full-width-field {
   width: 100%;
 }
 
-/* Styling for lists inside cards or sections for consistency */
 .content-list {
   padding: 0;
   margin: 0;
@@ -83,13 +81,12 @@ body {
   color: mat.get-color-from-palette($chessconnect-primary);
 }
 
-/* Centered loading indicator */
 .loading-spinner-container {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 40px 0;
-  min-height: 200px; /* Ensure it takes some space */
+  min-height: 200px;
 }
 
 .no-data-message {

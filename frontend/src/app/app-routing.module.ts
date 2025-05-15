@@ -10,6 +10,8 @@ import { SearchComponent } from './search/search.component';
 import { TeacherGuard } from './guards/teacher.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { ManageBookingsComponent } from './manage-bookings/manage-bookings.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -33,6 +35,11 @@ const routes: Routes = [
     path: 'manage-bookings',
     component: ManageBookingsComponent,
     canActivate: [TeacherGuard]
+  },
+  {
+    path: 'admin-panel',
+    component: AdminPanelComponent,
+    canActivate: [AdminGuard]
   },
   { path: '**', redirectTo: 'login' },
 ];

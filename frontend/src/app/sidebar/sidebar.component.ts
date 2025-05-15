@@ -8,7 +8,7 @@ interface NavItem {
   label: string;
   icon: string;
   route: string;
-  type: 'all' | 'teacher' | 'student';
+  type: 'all' | 'teacher' | 'student' | 'admin';
 }
 
 @Component({
@@ -17,7 +17,7 @@ interface NavItem {
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit, OnDestroy {
-  isExpanded = true; // Sidebar is always expanded
+  isExpanded = true;
   currentUser: User | null = null;
   defaultProfilePic = 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
   private userSubscription: Subscription | undefined;
@@ -35,6 +35,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
     { label: 'Manage Bookings', icon: 'rule_folder', route: '/manage-bookings', type: 'teacher' },
     { label: 'My Calendar', icon: 'event_available', route: '/calendar', type: 'teacher' },
     { label: 'My Students', icon: 'group', route: '/students', type: 'teacher' },
+  ];
+
+  adminNavItems: NavItem[] = [
+    { label: 'Admin Panel', icon: 'admin_panel_settings', route: '/admin-panel', type: 'admin'}
   ];
 
 
@@ -65,6 +69,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
     if (item.type === 'student') {
       return !this.currentUser.hasTeacherRights;
+    }
+    if (item.type === 'admin') {
+      return this.currentUser.isAdmin === true;
     }
     return true;
   }

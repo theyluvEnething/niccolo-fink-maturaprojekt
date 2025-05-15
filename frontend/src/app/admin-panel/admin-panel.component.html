@@ -1,0 +1,32 @@
+<div class="page-content-container">
+  <div class="page-header">
+    <h1>Admin Panel - User Management</h1>
+    <p>View and manage all users in the system.</p>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-spinner-container">
+    <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && allUsers.length === 0" class="no-data-message">
+    No users found in the system.
+  </div>
+
+  <div class="users-grid grid-container" *ngIf="!isLoading && allUsers.length > 0">
+    <mat-card *ngFor="let user of allUsers" class="user-card item-card" (click)="openUserDetailPopup(user)"
+              tabindex="0" role="button" [attr.aria-label]="'View details for ' + user.fullName">
+      <mat-card-header>
+        <img mat-card-avatar [src]="user.profilePictureUrl || defaultProfilePic" alt="{{ user.fullName }} profile picture" class="item-avatar">
+        <mat-card-title class="item-title">{{ user.fullName }}</mat-card-title>
+        <mat-card-subtitle class="item-subtitle">
+          {{ user.username }} - {{ getUserRoleText(user) }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="item-card-content">
+        <p><mat-icon>email</mat-icon> {{ user.email }}</p>
+        <p *ngIf="user.chessTitle"><mat-icon>military_tech</mat-icon> {{ user.chessTitle }}</p>
+        <p *ngIf="user.rating"><mat-icon>trending_up</mat-icon> {{ user.rating }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

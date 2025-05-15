@@ -1,30 +1,30 @@
-.profile-card-content { /* Renamed from profile-card to avoid conflict with page-header parent */
+.profile-card-content {
   max-width: 700px;
-  margin: 0 auto; /* Center the card */
+  margin: 0 auto;
   padding: 20px;
 }
 
 .profile-card-mat-header {
-  padding-bottom: 20px; /* Add some space below the header */
+  padding-bottom: 20px;
 }
 
 .profile-avatar {
-  width: 70px; /* Slightly smaller */
+  width: 70px;
   height: 70px;
   border-radius: 50%;
   object-fit: cover;
   margin-right: 16px;
-  border: 2px solid #4CAF50; /* Green border */
+  border: 2px solid #673ab7;
 }
 
 .profile-main-title {
-    font-size: 1.4em; /* Adjust if needed */
+    font-size: 1.4em;
 }
 
 .profile-form {
   display: flex;
   flex-direction: column;
-  gap: 18px; /* Increased gap slightly */
+  gap: 18px;
   margin-top: 10px;
 }
 
@@ -40,13 +40,13 @@
 }
 
 .profile-picture-preview {
-  max-width: 120px; /* Slightly smaller */
+  max-width: 120px;
   max-height: 120px;
-  border-radius: 6px; /* Consistent rounding */
+  border-radius: 6px;
   border: 1px solid #ccc;
   margin-top: 4px;
 }
 
 .profile-actions {
-  margin-top: 24px; /* More space above actions */
+  margin-top: 24px;
 }

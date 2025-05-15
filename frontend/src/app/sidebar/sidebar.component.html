@@ -32,10 +32,35 @@
     </ng-container>
   </mat-nav-list>
 
-  <hr *ngIf="currentUser?.hasTeacherRights" class="sidebar-divider teacher-section-divider">
+  <hr *ngIf="currentUser?.hasTeacherRights || currentUser?.isAdmin" class="sidebar-divider teacher-section-divider">
 
-  <mat-nav-list class="navigation-list teacher-specific-list" *ngIf="currentUser?.hasTeacherRights">
+  <mat-nav-list class="navigation-list teacher-specific-list" *ngIf="currentUser?.hasTeacherRights && !currentUser?.isAdmin">
      <ng-container *ngFor="let item of teacherNavItems">
+        <a mat-list-item
+           *ngIf="shouldShowItem(item)"
+           [routerLink]="item.route"
+           routerLinkActive="active-nav-item"
+           [routerLinkActiveOptions]="{exact: true}"
+           [title]="item.label">
+          <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+          <span matListItemTitle class="nav-item-label">{{item.label}}</span>
+        </a>
+      </ng-container>
+  </mat-nav-list>
+
+   <mat-nav-list class="navigation-list admin-specific-list" *ngIf="currentUser?.isAdmin">
+     <ng-container *ngFor="let item of teacherNavItems">
+        <a mat-list-item
+           *ngIf="shouldShowItem(item)"
+           [routerLink]="item.route"
+           routerLinkActive="active-nav-item"
+           [routerLinkActiveOptions]="{exact: true}"
+           [title]="item.label">
+          <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+          <span matListItemTitle class="nav-item-label">{{item.label}}</span>
+        </a>
+      </ng-container>
+     <ng-container *ngFor="let item of adminNavItems">
         <a mat-list-item
            *ngIf="shouldShowItem(item)"
            [routerLink]="item.route"

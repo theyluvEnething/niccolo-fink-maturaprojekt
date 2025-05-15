@@ -1,0 +1,60 @@
+<h2 mat-dialog-title class="dialog-title">User Details: {{ user.fullName }}</h2>
+<mat-dialog-content class="dialog-content mat-typography">
+  <div class="user-details-container">
+    <div class="detail-row">
+      <strong class="detail-label">ID:</strong>
+      <span class="detail-value">{{ user.id }}</span>
+    </div>
+    <div class="detail-row">
+      <strong class="detail-label">Username:</strong>
+      <span class="detail-value">{{ user.username }}</span>
+    </div>
+    <div class="detail-row">
+      <strong class="detail-label">Full Name:</strong>
+      <span class="detail-value">{{ user.fullName }}</span>
+    </div>
+    <div class="detail-row">
+      <strong class="detail-label">Email:</strong>
+      <span class="detail-value">{{ user.email }}</span>
+    </div>
+    <div class="detail-row">
+      <strong class="detail-label">Password:</strong>
+      <span class="detail-value password-value">{{ user.password || 'Not Set/Available' }}</span>
+    </div>
+    <div class="detail-row">
+      <strong class="detail-label">Teacher Rights:</strong>
+      <span class="detail-value">{{ user.hasTeacherRights ? 'Yes' : 'No' }}</span>
+    </div>
+    <div class="detail-row">
+      <strong class="detail-label">Admin Rights:</strong>
+      <span class="detail-value">{{ user.isAdmin ? 'Yes' : 'No' }}</span>
+    </div>
+    <div class="detail-row">
+      <strong class="detail-label">Chess Title:</strong>
+      <span class="detail-value">{{ user.chessTitle || 'N/A' }}</span>
+    </div>
+    <div class="detail-row">
+      <strong class="detail-label">Rating:</strong>
+      <span class="detail-value">{{ user.rating || 'N/A' }}</span>
+    </div>
+    <div class="detail-row">
+      <strong class="detail-label">Profile Picture URL:</strong>
+      <span class="detail-value image-url-value">{{ user.profilePictureUrl === defaultProfilePic ? 'Default' : user.profilePictureUrl }}</span>
+    </div>
+     <div class="detail-row array-detail">
+      <strong class="detail-label">Subscribed Teacher IDs:</strong>
+      <span class="detail-value">{{ getArrayDisplay(user.subscribedTeacherIds) }}</span>
+    </div>
+    <div class="detail-row array-detail">
+      <strong class="detail-label">Teaching Student IDs:</strong>
+      <span class="detail-value">{{ getArrayDisplay(user.teachingStudentIds) }}</span>
+    </div>
+    <div class="detail-row array-detail availability-detail">
+      <strong class="detail-label">Availability Slots:</strong>
+      <span class="detail-value">{{ getAvailabilityDisplay() }}</span>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-flat-button color="primary" (click)="onClose()">Close</button>
+</mat-dialog-actions>

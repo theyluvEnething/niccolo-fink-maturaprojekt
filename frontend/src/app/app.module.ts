@@ -21,6 +21,8 @@ import { TeacherAvailabilityPopupComponent } from './my-availability/components/
 import { BookingRequestPopupComponent } from './find-lessons/components/booking-request-popup/booking-request-popup.component';
 import { ManageBookingsComponent } from './manage-bookings/manage-bookings.component';
 import { TeacherDetailPopupComponent } from './search/components/teacher-detail-popup/teacher-detail-popup.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { UserDetailPopupComponent } from './admin-panel/components/user-detail-popup/user-detail-popup.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -55,7 +57,9 @@ import { MatDividerModule } from '@angular/material/divider';
     TeacherAvailabilityPopupComponent,
     BookingRequestPopupComponent,
     ManageBookingsComponent,
-    TeacherDetailPopupComponent
+    TeacherDetailPopupComponent,
+    AdminPanelComponent,
+    UserDetailPopupComponent
   ],
   imports: [
     BrowserModule,

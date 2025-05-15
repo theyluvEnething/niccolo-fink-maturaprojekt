@@ -70,6 +70,7 @@ export class UserService {
       email: 'student@email.com',
       password: '1234',
       hasTeacherRights: false,
+      isAdmin: false,
       subscribedTeacherIds: [teacherId1, userWithBothRightsId],
       profilePictureUrl: this.defaultProfilePic,
       chessTitle: 'Novice',
@@ -83,6 +84,7 @@ export class UserService {
       email: 'teacher@email.com',
       password: '1234',
       hasTeacherRights: true,
+      isAdmin: false,
       availability: initialAvailabilitiesTeacher1,
       teachingStudentIds: [studentId1],
       subscribedTeacherIds: [userWithBothRightsId],
@@ -98,6 +100,7 @@ export class UserService {
       email: 'magnus@email.com',
       password: '1234',
       hasTeacherRights: true,
+      isAdmin: true,
       availability: initialAvailabilitiesBothRights,
       subscribedTeacherIds: [teacherId1],
       teachingStudentIds: [],
@@ -149,6 +152,14 @@ export class UserService {
       const { password, ...user } = u;
       const userWithPic = { ...user, profilePictureUrl: user.profilePictureUrl || this.defaultProfilePic };
       return JSON.parse(JSON.stringify(userWithPic)) as User;
+    });
+  }
+
+  getAllUsersForAdmin(): User[] {
+    return this.users.map(u => {
+      const userCopy = { ...u };
+      userCopy.profilePictureUrl = userCopy.profilePictureUrl || this.defaultProfilePic;
+      return JSON.parse(JSON.stringify(userCopy)) as User;
     });
   }
 

@@ -1,18 +1,21 @@
+@use '@angular/material' as mat;
+@import '../../styles.scss';
+
 :host {
   display: block;
   width: 100%;
   height: 100%;
-  background-color: #1A4314; /* Darker Forest Green */
-  color: #E8F5E9; /* Very light green for text */
+  background-color: #2A0B40;
+  color: #E6E0F0;
   box-sizing: border-box;
-  overflow-x: hidden; /* Prevent horizontal scroll if content is too wide */
-  overflow-y: hidden; /* Prevent vertical scrollbar on the sidebar itself */
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .sidebar-container {
   display: flex;
   flex-direction: column;
-  width: 100%; /* Takes width from mat-sidenav */
+  width: 100%;
   height: 100%;
   padding-top: 10px;
 }
@@ -20,7 +23,7 @@
 .sidebar-header {
   display: flex;
   align-items: center;
-  justify-content: center; /* Center logo when toggle is removed */
+  justify-content: center;
   padding: 0 10px 10px 10px;
   min-height: 48px;
 }
@@ -29,14 +32,14 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  margin-left: 6px; /* Adjusted for expanded state */
+  margin-left: 6px;
 }
 
 .logo-icon {
   font-size: 32px;
   width: 32px;
   height: 32px;
-  color: #A5D6A7; /* Light green for the logo icon */
+  color: #C5B2E0;
   flex-shrink: 0;
 }
 
@@ -45,19 +48,19 @@
   font-weight: bold;
   white-space: nowrap;
   margin-left: 8px;
-  opacity: 1; /* Always visible */
-  color: #E8F5E9;
+  opacity: 1;
+  color: #E6E0F0;
 }
 
 .navigation-list {
   flex-grow: 0;
-  overflow-y: auto; /* Allow internal scrolling for nav items if they overflow */
-  max-height: calc(100% - 200px); /* Adjust based on header/footer/profile height */
+  overflow-y: auto;
+  max-height: calc(100% - 200px);
 }
 
 .navigation-list .mat-mdc-list-item,
 .bottom-nav-list .mat-mdc-list-item {
-  color: #E8F5E9;
+  color: #E6E0F0;
   border-left: 5px solid transparent;
   margin: 2px 0;
   padding-left: 12px;
@@ -68,43 +71,43 @@
 
 .navigation-list .mat-mdc-list-item:hover,
 .bottom-nav-list .mat-mdc-list-item:hover {
-  background-color: rgba(255, 255, 255, 0.1); /* Subtle hover */
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .navigation-list .mat-mdc-list-item.active-nav-item,
 .bottom-nav-list .mat-mdc-list-item.active-nav-item {
-  background-color: #66BB6A; /* Brighter green for active item */
-  color: #103A00; /* Darker green for text/icon on active */
-  border-left-color: #A5D6A7; /* Light green accent border */
+  background-color: mat.get-color-from-palette($chessconnect-accent, A200);
+  color: #FFFFFF;
+  border-left-color: #C5B2E0;
 }
 
 .navigation-list .mat-mdc-list-item.active-nav-item .nav-item-label,
 .navigation-list .mat-mdc-list-item.active-nav-item mat-icon,
 .bottom-nav-list .mat-mdc-list-item.active-nav-item .nav-item-label,
 .bottom-nav-list .mat-mdc-list-item.active-nav-item mat-icon {
-  color: #103A00;
+  color: #FFFFFF;
 }
 
 .navigation-list .mat-mdc-list-item mat-icon,
 .bottom-nav-list .mat-mdc-list-item mat-icon {
   margin-right: 16px;
-  color: #E8F5E9;
+  color: #E6E0F0;
 }
 
 .nav-item-label {
   white-space: nowrap;
-  opacity: 1; /* Always visible */
-  color: #E8F5E9;
+  opacity: 1;
+  color: #E6E0F0;
 }
 
 .sidebar-spacer {
-  flex-grow: 1; /* Pushes items below it to the bottom */
+  flex-grow: 1;
 }
 
 .teacher-section-divider {
   border: none;
   height: 1px;
-  background-color: rgba(165, 214, 167, 0.3); /* Light green transparent */
+  background-color: rgba(197, 178, 224, 0.3);
   margin: 8px 16px;
 }
 
@@ -118,7 +121,7 @@
   padding: 10px 16px;
   margin-bottom: 8px;
   overflow: hidden;
-  flex-shrink: 0; /* Prevent this section from shrinking */
+  flex-shrink: 0;
 }
 
 .profile-picture-sidebar {
@@ -127,7 +130,7 @@
   border-radius: 50%;
   margin-right: 12px;
   object-fit: cover;
-  border: 2px solid #A5D6A7; /* Light green border for profile pic */
+  border: 2px solid #C5B2E0;
 }
 
 .user-info-sidebar {
@@ -141,33 +144,33 @@
 .user-name-sidebar {
   font-weight: 500;
   font-size: 0.95em;
-  color: #E8F5E9;
+  color: #E6E0F0;
 }
 
 .user-title-sidebar {
   font-size: 0.8em;
-  color: rgba(232, 245, 233, 0.7); /* Lighter, less prominent text */
+  color: rgba(230, 224, 240, 0.7);
 }
 
 .sidebar-divider {
   border: none;
   height: 1px;
-  background-color: rgba(165, 214, 167, 0.3);
+  background-color: rgba(197, 178, 224, 0.3);
   margin: 0px 16px 8px 16px;
   flex-shrink: 0;
 }
 
 .bottom-nav-list {
  padding-bottom: 8px;
- flex-shrink: 0; /* Prevent this section from shrinking */
+ flex-shrink: 0;
 }
 
 .bottom-nav-list .mat-mdc-list-item .logout-icon {
-  color: #EF9A9A; /* Lighter Red color for logout icon */
+  color: #EF9A9A;
 }
 
 .bottom-nav-list .mat-mdc-list-item:hover .logout-icon {
-  color: #E57373; /* Slightly Darker red on hover */
+  color: #E57373;
 }
 
 .bottom-nav-list .mat-mdc-list-item .logout-label {

@@ -3,7 +3,7 @@
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.08);
   position: relative;
-  border-left: 6px solid transparent; /* Status indication */
+  border-left: 6px solid transparent;
   transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
 
@@ -12,24 +12,24 @@
     box-shadow: 0 4px 10px rgba(0,0,0,0.12);
 }
 
-.request-card.status-pending { border-left-color: #FFB300; /* Amber variant */ }
-.request-card.status-accepted { border-left-color: #43A047; /* Green variant */ }
-.request-card.status-rejected { border-left-color: #E53935; /* Red variant */ }
+.request-card.status-pending { border-left-color: #FFB300; }
+.request-card.status-accepted { border-left-color: #673ab7; }
+.request-card.status-rejected { border-left-color: #E53935; }
 
 
 .item-avatar {
-  border: 1px solid #C8E6C9; /* Light green border */
+  border: 1px solid #d1c4e9;
 }
 
 .mat-mdc-card-header {
-  position: relative; /* For absolute positioning of status badge */
+  position: relative;
 }
 
 .item-title {
     font-weight: 500;
 }
 
-.request-details { /* Combined mat-card-subtitle styles */
+.request-details {
   font-size: 0.85em;
   color: #555;
   line-height: 1.4;
@@ -40,7 +40,7 @@
   top: 16px;
   right: 16px;
   padding: 4px 10px;
-  border-radius: 12px; /* More rounded badge */
+  border-radius: 12px;
   font-size: 0.75em;
   font-weight: 600;
   color: white;
@@ -49,7 +49,7 @@
 }
 
 .request-status-badge.status-pending { background-color: #FFB300; color: #3E2723;}
-.request-status-badge.status-accepted { background-color: #43A047; }
+.request-status-badge.status-accepted { background-color: #673ab7; }
 .request-status-badge.status-rejected { background-color: #E53935; }
 
 .notes {
@@ -57,10 +57,10 @@
   color: #444;
   margin-bottom: 12px;
   padding: 10px;
-  background-color: #f0f4f0; /* Very light green for notes */
+  background-color: #f3e5f5;
   border-radius: 6px;
   white-space: pre-wrap;
-  border: 1px dashed #A5D6A7; /* Dashed light green border */
+  border: 1px dashed #b39ddb;
 }
 
 .teacher-notes-field {
@@ -69,7 +69,7 @@
 
 .mat-mdc-card-actions {
   padding: 8px 16px !important;
-  border-top: 1px solid #E8F5E9; /* Light green separator */
+  border-top: 1px solid #ede7f6;
   margin-top: 10px;
 }
 
